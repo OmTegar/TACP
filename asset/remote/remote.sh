@@ -62,7 +62,7 @@ select pil in "${pil[@]}"; do
         ssh -i labsuser.pem ubuntu@$ip <<EOF
 sudo su
 cd /
-git clone https://github.com/OmTegar/Fiture-OmTegar.git
+git clone https://github.com/OmTegar/TACP.git
 cd /Fiture-OmTegar
 chmod +x index.sh
 banner="#####################################################################################################################
@@ -92,7 +92,7 @@ sudo su
 apt-get update 
 apt install git -y
 cd /
-git clone https://github.com/OmTegar/Fiture-OmTegar.git
+git clone https://github.com/OmTegar/TACP.git
 cd /Fiture-OmTegar
 chmod +x index.sh
 banner="#####################################################################################################################
