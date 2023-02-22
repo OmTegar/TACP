@@ -50,8 +50,8 @@ Jika anda ingin Menambahkan Website personal anda dan terkonfigurasi secara otom
 anda dapat menggunakan layanan kami dengan menghubungi nomor di bawah ini :
 <br><code>0812-3321-9130</code></br>
 Untuk harga jasa layanan TACP dapat anda nikmati dengan harga sebagai berikut:
-1. Menambahkan Website Statis Personal<strong>10k</strong>
-2. Menambahkan Website Dinamis Personal<strong>25k</strong>
+1. Menambahkan Website Statis Personal <strong>10k</strong>
+2. Menambahkan Website Dinamis Personal <strong>25k</strong>
 3. Menambahkan Website Personal Berbasis Framework <strong>50k</strong>
 
 Nikmati Mudahnya Hosting Website dengan harga terjangkau hanya di TAC - Project
