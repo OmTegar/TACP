@@ -22,7 +22,7 @@ rsa="
 INPUT RSA PRIVATE KEY ANDA / .PEM                                                                                                                                                                                                                                                                  
 "
 echo "$rsa"
-sleep 2
+sleep 4
 
 #menyimpan RSA pada directory (/)
 cd / && nano labsuser.pem
