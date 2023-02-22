@@ -91,13 +91,13 @@ select opt in "${options[@]}"; do
                                 sudo ./asset/WebDinamis/batiku/batikuEFS.sh
                                 ;;
                             "Quit")
-                                break 2
+                                break 3
                                 ;;
                             esac
                         done
                         ;;
                     "Quit")
-                        break
+                        break 2
                         ;;
                     esac
                 done
