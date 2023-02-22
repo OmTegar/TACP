@@ -276,7 +276,7 @@ sleep 2
 echo " "
 echo "Berikut Data FTP Server Anda:" > /home/ftp/ftp.txt
 echo "#############################" >> /home/ftp/ftp.txt
-echo "IP           = HIDDEN"         >> /home/ftp/ftp.txt
+echo "IP           = IP PUBLIC "         >> /home/ftp/ftp.txt
 echo "Server Name  = $ServerName"    >> /home/ftp/ftp.txt
 echo "PORT         = $port"          >> /home/ftp/ftp.txt
 echo "Password     = $password"      >> /home/ftp/ftp.txt
