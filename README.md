@@ -49,11 +49,12 @@ Package sudah siap di jalankan ulang.
 Jika anda ingin melakukan hosting Website personal anda secara otomatis 
 anda dapat menggunakan layanan kami dengan menghubungi nomor di bawah ini :
 <br><code>0812-3321-9130</code></br>
-
 Untuk harga jasa layanan TACP dapat anda nikmati dengan harga sebagai berikut:
 1. Hosting Otomatis Website Statis <strong>10k</strong>
 2. Hosting Otomatis Website Dinamis <strong>25k</strong>
 3. Hosting Otomatis Website Berbasis Framework <strong>50k</strong>
+
+Nikmati Mudahnya Hosting Website dengan harga terjangkau hanya di TAC - Project
 ===========================================================================
 
 Sekian Dari saya Terimakasih 
