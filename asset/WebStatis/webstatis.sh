@@ -30,12 +30,12 @@ select statis in "${statis[@]}"; do
             "Yes")
                 echo "Terimakasih atas kepercayaan anda"
                 echo " - OmTegar"
-                break
+                break 2
                 ;;
             "No")
                 echo "Mohon Maaf atas ketidak nyamanan dari pelayanan kami...."
                 echo "Silahkan Hubungi Developer melalui github."
-                break
+                break 2
                 ;;
             esac
         done
