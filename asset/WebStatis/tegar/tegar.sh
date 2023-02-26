@@ -16,7 +16,7 @@ echo -e "${banner}${RESET}"
 sleep 2
 
 # Clone the company-aisyatul repository to /var/www/html
-cd /var/www/html/ && git clone https://github.com/OmTegar/my-company-profile.git
+cd /var/www/html/ && clone_repo "https://github.com/OmTegar/my-company-profile.git"
 
 # Give permission to access asset directory and index.php file
 chmod 777 -R /var/www/html/my-company-profile/

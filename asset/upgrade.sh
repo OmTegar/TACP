@@ -100,3 +100,22 @@ function progress_bar {
 }
 
 
+function clone_repo {
+  local repo_url=$1
+  local repo_name=$(basename $repo_url .git)
+  printf "${GREEN}Cloning $repo_name ...${RESET}\n"
+  git clone $repo_url $repo_name &>/dev/null &
+  local pid=$!
+  local delay=0.1
+  local chars="/-\|"
+  while [ $(ps -eo pid | grep $pid) ]; do
+    local char="${chars:$((i++%${#chars})):1}"
+    printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ..."
+    printf "${GREEN}${char}" $progress
+    sleep $delay
+    printf "\b\b\b"
+  done
+  printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ... Done\n"
+}
+
+
