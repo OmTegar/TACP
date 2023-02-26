@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source ./upgrade.sh
 
 # Check if apache2 is already installed
