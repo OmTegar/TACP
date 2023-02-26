@@ -51,18 +51,19 @@ function confirm_action {
   done
 }
 
-# Function to display a progress bar
+# Function to display a progress bar in green color
 function progress_bar {
   local pid=$!
   local delay=0.1
   local spinstr='|/-\'
   while [ $(ps -eo pid | grep $pid) ]; do
     local temp=${spinstr#?}
-    printf " [%c] " "$spinstr"
+    printf "${GREEN} [%c] ${RESET}" "$spinstr"
     spinstr=$temp${spinstr%"$temp"}
     sleep $delay
     printf "\b\b\b\b\b\b"
   done
   printf "    \b\b\b\b"
 }
+
 
