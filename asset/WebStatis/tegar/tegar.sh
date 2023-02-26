@@ -2,8 +2,15 @@
 
 source ../../.upgrade.sh
 
-apt-get install apache2 -y & progress_bar $! 
-wait
+# Check if apache2 is already installed
+if ! command -v apache2 &> /dev/null
+then
+    # If apache2 is not installed, install it with progress bar
+    apt-get install apache2 -y & progress_bar $! 
+    wait
+fi
+
+# Start Apache2 service
 service apache2 start
 clear
 echo "${banner}${RESET}"
