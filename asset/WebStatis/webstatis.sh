@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source ./upgrade.sh
+source ./asset/upgrade.sh
 
 clear
-banner="#####################################################################
+ban="#####################################################################
                                                                 
   8888888 8888888888   .8.           ,o888888o.    8 888888888o   
         8 8888        .888.         8888      88.  8 8888     88. 
@@ -17,7 +17,7 @@ banner="#####################################################################
         8 8888.8'        8.  88888.   8888888P'    8 8888         
                                                                   
 #####################################################################"
-echo "$banner"
+echo "${banner}${RESET}"
 sleep 2
 statis=("company-profile-sektema" "company-profile-OmTegar" "company-Profile-Aisyatul" "Quit")
 echo "Pilih Apps Yang ingin anda gunakan :"
