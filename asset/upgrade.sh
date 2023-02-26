@@ -101,9 +101,6 @@ function progress_bar {
 }
 
 
-
-
-
 function clone_repo {
   local repo_url=$1
   local repo_name=$(basename $repo_url .git)
