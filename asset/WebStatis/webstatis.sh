@@ -3,7 +3,7 @@
 source ./asset/upgrade.sh
 
 clear
-echo "${banner}${RESET}"
+echo -e "${banner}${RESET}"
 sleep 2
 statis=("company-profile-sektema" "company-profile-OmTegar" "company-Profile-Aisyatul" "Quit")
 echo "Pilih Apps Yang ingin anda gunakan :"

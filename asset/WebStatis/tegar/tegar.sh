@@ -12,7 +12,7 @@ fi
 # Start Apache2 service
 service apache2 start
 clear
-echo "${banner}${RESET}"
+echo -e "${banner}${RESET}"
 sleep 2
 
 # Clone the company-aisyatul repository to /var/www/html
