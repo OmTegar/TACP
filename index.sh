@@ -5,6 +5,8 @@ source ./asset/upgrade.sh
 
 apt-get update -y & progress_bar $! wait $!
 
+sudo ./asset/symlink.sh
+
 chmod +x -R asset/
 clear
 echo -e "${banner}${RESET}"
