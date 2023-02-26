@@ -13,7 +13,7 @@ fi
 chmod +x -R asset/
 
 clear
-echo -e "${banner}${RESET}"
+echo -e "${banner1}${RESET}"
 sleep 2
 
 PS3='Please enter your choice: '
