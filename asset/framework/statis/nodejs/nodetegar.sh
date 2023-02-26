@@ -29,6 +29,7 @@ git clone https://github.com/OmTegar/node-website-static1.git
 cd node-website-static1/
 npm install
 pm2 startup
+pm2 delete index
 pm2 start index.js
 
 # Mengganti konfigurasi default Nginx dengan konfigurasi yang disediakan
