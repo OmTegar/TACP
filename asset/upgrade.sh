@@ -69,23 +69,21 @@ function confirm_action {
 function progress_bar {
   local pid=$!
   local delay=0.1
-  local spinstr='|/-\'
   local i=0
   local progress=0
+  local chars="/-\|"
+  printf "${GREEN}Starting process:${RESET}\n"
   while [ $(ps -eo pid | grep $pid) ]; do
-    local temp=${spinstr#?}
-    if [ $i -eq 0 ]; then
-      printf "${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}" $progress
-      i=1
-    else
-      printf "\b\b\b${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}" $progress
-      i=0
-    fi
-    spinstr=$temp${spinstr%"$temp"}
+    local char="${chars:$((i++%${#chars})):1}"
+    printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" $progress
+    printf "${GREEN}${char}" $progress
     sleep $delay
+    printf "\b\b\b"
     progress=$(($progress + 10))
   done
-  printf "${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}\n" $progress
+  printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" 100
+  printf "\n${GREEN}Process finished!${RESET}\n"
 }
+
 
 
