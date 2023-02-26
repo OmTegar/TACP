@@ -11,8 +11,8 @@ else
 fi
 
 sudo ./asset/symlink.sh
-
 chmod +x -R asset/
+
 clear
 echo -e "${banner}${RESET}"
 sleep 2
