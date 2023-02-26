@@ -3,8 +3,7 @@
 # source upgrade package....
 source ./asset/upgrade.sh
 
-apt-get update -y & progress_bar $! 
-wait
+apt-get update -y & progress_bar $! wait $!
 
 chmod +x -R asset/
 clear
