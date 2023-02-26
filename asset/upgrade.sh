@@ -61,27 +61,3 @@ function progress_bar {
   done
   wait $pid
 }
-
-# Update package list
-success_message "Updating package list..."
-apt-get update -y > /dev/null 2>&1 &
-progress
-
-# Install required packages
-success_message "Installing required packages..."
-apt-get install -y curl wget > /dev/null 2>&1 &
-progress
-
-# Download and install Node.js
-success_message "Downloading and installing Node.js..."
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - > /dev/null 2>&1 &&
-apt-get install -y nodejs > /dev/null 2>&1 &
-progress
-
-# Verify Node.js installation
-success_message "Verifying Node.js installation..."
-if node -v > /dev/null 2>&1; then
-  success_message "Node.js is successfully installed."
-else
-  error_message "Node.js installation failed."
-fi
