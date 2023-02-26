@@ -53,12 +53,16 @@ function confirm_action {
 
 # Function to display a progress bar
 function progress_bar {
-  local progress=0
   local pid=$!
-  while [ $progress -ne 100 ]; do
-    sleep 1
-    progress=$(expr $progress + 10)
-    echo -ne "${BLUE}[+] Progress: ${progress}%\r${RESET}"
+  local delay=0.1
+  local spinstr='|/-\'
+  while [ $(ps -eo pid | grep $pid) ]; do
+    local temp=${spinstr#?}
+    printf " [%c] " "$spinstr"
+    spinstr=$temp${spinstr%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
   done
-  wait $pid
+  printf "    \b\b\b\b"
 }
+

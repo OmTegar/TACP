@@ -10,7 +10,6 @@ else
   apt-get update -y & progress_bar $! wait $!
 fi
 
-sudo ./asset/symlink.sh
 chmod +x -R asset/
 
 clear
