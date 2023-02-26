@@ -2,8 +2,9 @@
 
 source ./upgrade.sh
 
-if [ -L /asset/WebStatis/tegar/upgrade.sh ]; then
-    echo "Symbolic link already exists"
+if [ -f /asset/WebStatis/tegar/upgrade.sh ]; then
+    echo "File already exists"
 else
-    ln -s asset/upgrade.sh asset/WebStatis/tegar/
+    progress_bar cp asset/upgrade.sh asset/WebStatis/tegar/
 fi
+
