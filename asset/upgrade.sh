@@ -52,18 +52,40 @@ function confirm_action {
 }
 
 # Function to display a progress bar in green color
+# function progress_bar {
+#   local pid=$!
+#   local delay=0.1
+#   local spinstr='|/-\'
+#   while [ $(ps -eo pid | grep $pid) ]; do
+#     local temp=${spinstr#?}
+#     printf "${GREEN} [%c] ${RESET}" "$spinstr"
+#     spinstr=$temp${spinstr%"$temp"}
+#     sleep $delay
+#     printf "\b\b\b\b\b\b"
+#   done
+#   printf "    \b\b\b\b"
+# }
+
 function progress_bar {
   local pid=$!
   local delay=0.1
   local spinstr='|/-\'
+  local i=0
+  local progress=0
   while [ $(ps -eo pid | grep $pid) ]; do
     local temp=${spinstr#?}
-    printf "${GREEN} [%c] ${RESET}" "$spinstr"
+    if [ $i -eq 0 ]; then
+      printf "${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}" $progress
+      i=1
+    else
+      printf "\b\b\b${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}" $progress
+      i=0
+    fi
     spinstr=$temp${spinstr%"$temp"}
     sleep $delay
-    printf "\b\b\b\b\b\b"
+    progress=$(($progress + 10))
   done
-  printf "    \b\b\b\b"
+  printf "${GREEN} [${spinstr:0:1}] ${RESET} ${YELLOW}%3d%% ${RESET}\n" $progress
 }
 
 
