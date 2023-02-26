@@ -66,24 +66,37 @@ function confirm_action {
 #   printf "    \b\b\b\b"
 # }
 
+# function progress_bar {
+#   local pid=$!
+#   local delay=0.1
+#   local i=0
+#   local progress=0
+#   local chars="/-\|"
+#   printf "${GREEN}Starting process:${RESET}\n"
+#   while [ $(ps -eo pid | grep $pid) ]; do
+#     local char="${chars:$((i++%${#chars})):1}"
+#     printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" $progress
+#     printf "${GREEN}${char}" $progress
+#     sleep $delay
+#     printf "\b\b\b"
+#     progress=$(($progress + 10))
+#   done
+#   printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" 100
+#   printf "\n${GREEN}Process finished!${RESET}\n"
+# }
+
 function progress_bar {
   local pid=$!
   local delay=0.1
-  local i=0
-  local progress=0
   local chars="/-\|"
   printf "${GREEN}Starting process:${RESET}\n"
   while [ $(ps -eo pid | grep $pid) ]; do
     local char="${chars:$((i++%${#chars})):1}"
-    printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" $progress
-    printf "${GREEN}${char}" $progress
+    printf "${GREEN}[${char}] ${RESET} Working on task..."
     sleep $delay
-    printf "\b\b\b"
-    progress=$(($progress + 10))
+    printf "\r"
   done
-  printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" 100
-  printf "\n${GREEN}Process finished!${RESET}\n"
+  printf "\n${GREEN}[${char}] ${RESET} Task completed.${RESET}\n"
 }
-
 
 
