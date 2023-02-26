@@ -1,4 +1,9 @@
 #!/bin/bash
+# Memperbarui paket dan menginstal paket yang diperlukan
+apt update && apt install nodejs npm nginx -y
+
+# Menginstal PM2 untuk memproses aplikasi Node.js
+npm install pm2 -g
 
 clear
 banner="#####################################################################
@@ -18,12 +23,6 @@ banner="#####################################################################
 echo "$banner"
 sleep 2
 
-# Memperbarui paket dan menginstal paket yang diperlukan
-apt update && apt install nodejs npm git nginx -y
-
-# Menginstal PM2 untuk memproses aplikasi Node.js
-npm install pm2 -g
-
 # Menjalankan aplikasi Node.js menggunakan PM2
 cd /var/www
 git clone https://github.com/OmTegar/node-website-static1.git
@@ -38,3 +37,8 @@ cp app/shell/nginx.conf /etc/nginx/
 
 # Merestart Nginx
 systemctl restart nginx
+
+clear
+echo "$banner"
+sleep 2
+echo "Terimakasih Telah Menggunakan Layanan kami"

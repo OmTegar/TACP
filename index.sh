@@ -125,6 +125,7 @@ select opt in "${options[@]}"; do
                         "Nodejs")
                             sudo ./asset/framework/statis/nodejs/nodetegar.sh
                             break 2
+                            echo "$options"
                         ;;
                         "Quit")
                         break 2
