@@ -6,6 +6,7 @@ Aplikasi ini dibuat untuk mempermudah konfigurasi anda dalam berbagai aspek sepe
 - mount directory EBS
 - Hosting Web Apps 
 - Hosting Web Apps + Database
+- Hosting Web Framework Static
 - FTP Server
 - Remote Server
 - Auto Update Package TACP
