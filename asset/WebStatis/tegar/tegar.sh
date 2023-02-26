@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./upgrade.sh
+source ./asset/upgrade.sh
 
 # Check if apache2 is already installed
 if ! command -v apache2 &> /dev/null
