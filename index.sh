@@ -3,7 +3,7 @@ apt-get update -y
 chmod +x -R asset/
 clear
 source ./asset/upgrade.sh
-echo -e "${banner}${BLUE}"
+echo -e "${banner}${RESET}"
 sleep 2
 
 PS3='Please enter your choice: '
