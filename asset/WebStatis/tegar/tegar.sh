@@ -1,6 +1,6 @@
 #!/bin/bash
-# source upgrade package....
-./../../upgrade.sh
+
+source ../../.upgrade.sh
 
 apt-get install apache2 -y & progress_bar $! 
 wait
