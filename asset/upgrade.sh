@@ -99,9 +99,6 @@ function progress_bar {
   printf "\n${GREEN}[${char}] ${RESET} Task completed.${RESET}\n"
 }
 
-
-#!/bin/bash
-
 function clone_repo {
   local repo_url=$1
   local dir_path=$2
