@@ -88,16 +88,17 @@ function confirm_action {
 function progress_bar {
   local pid=$!
   local delay=0.1
-  local chars="/-\|"
-  printf "${GREEN}Starting process:${RESET}\n"
-  printf "${GREEN}[ ] ${RESET} Working on task..."
+  local i=0
+  printf "${GREEN}Working on task...${RESET}"
   while [ $(ps -eo pid | grep $pid) ]; do
-    local char="${chars:$((i++%${#chars})):1}"
-    printf "\b${char}"
+    local char="${SPINNER_GREEN:$((i++%${#SPINNER_GREEN})):1}"
+    printf "${GREEN}[${char}]${RESET}"
     sleep $delay
+    printf "\b\b\b"
   done
-  printf "\b ${GREEN}Task completed.${RESET}\n"
+  printf "${GREEN}[${CHECK_MARK}]${RESET} Task completed.${RESET}\n"
 }
+
 
 
 
