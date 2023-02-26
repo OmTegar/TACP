@@ -100,22 +100,41 @@ function progress_bar {
 }
 
 
+#!/bin/bash
+
 function clone_repo {
   local repo_url=$1
-  local repo_name=$(basename $repo_url .git)
-  printf "${GREEN}Cloning $repo_name ...${RESET}\n"
-  git clone $repo_url $repo_name &>/dev/null &
+  local dir_path=$2
+  local dir_name=$(basename "$dir_path")
   local pid=$!
+
+  printf "${GREEN}Cloning repository ${repo_url} to ${dir_path}...${RESET}\n"
+
+  if [ -d "$dir_path" ]; then
+    printf "${YELLOW}Directory ${dir_path} already exists. Removing...${RESET}\n"
+    rm -rf "$dir_path"
+  fi
+
+  mkdir -p "$dir_path"
+  cd "$dir_path"
+
+  git clone "$repo_url" "$dir_name" &
+  pid=$!
+
   local delay=0.1
   local chars="/-\|"
   while [ $(ps -eo pid | grep $pid) ]; do
     local char="${chars:$((i++%${#chars})):1}"
-    printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ..."
-    printf "${GREEN}${char}" $progress
-    sleep $delay
+    printf "${GREEN}[${char}] ${RESET}Cloning in progress..."
     printf "\b\b\b"
+    sleep $delay
   done
-  printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ... Done\n"
+
+  printf "${GREEN}[✔] ${RESET}Cloning completed!\n"
+  printf "${YELLOW}Cloned repository stored in: ${dir_path}${RESET}\n"
 }
+
+
+
 
 
