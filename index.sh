@@ -21,7 +21,7 @@ echo "$banner"
 sleep 2
 
 PS3='Please enter your choice: '
-options=("Install Web Static" "Install Web Dinamis" "FTP Server" "Auto Mount EBS" "Remote Server ( OS Ubuntu / OS Debian )" "Update package TACP" "Quit")
+options=("Install Web Static" "Install Web Dinamis" "Install Web Framework" "FTP Server" "Auto Mount EBS" "Remote Server ( OS Ubuntu / OS Debian )" "Update package TACP" "Quit")
 select opt in "${options[@]}"; do
     case $opt in
     "Install Web Static")
@@ -79,9 +79,6 @@ select opt in "${options[@]}"; do
                         select batlink in "${batikuEFSlink[@]}"; do
                             case $batlink in
                             "Batiku + EFS Apps Admin Version")
-                                clear
-                                echo "$banner"
-                                sleep 2
                                 sudo ./asset/WebDinamis/batiku/AdminBatikuEFS.sh
                                 ;;
                             "Batiku + EFS Apps client Version")
@@ -109,6 +106,45 @@ select opt in "${options[@]}"; do
         done
         ;;
 
+    "Install Web Framework")
+        clear
+        echo "$banner"
+        sleep 2
+        echo "Pilih Karakter Framework yang kamu butuhkan ?"
+        framework=("Framework static" "Framework dynamic" "Quit")
+        select framework in "${framework[@]}"; do
+            case $framework in
+            "Framework static")
+                clear
+                echo "$banner"
+                sleep 2
+                echo "Pilih Framework yang ingin anda install ?"
+                PilFrameworkStatic=("Nodejs" "Quit")
+                select PilFrameworkStatic in "${PilFrameworkStatic[@]}"; do
+                    case $PilFrameworkStatic in
+                        "Nodejs")
+                            sudo ./asset/framework/statis/nodejs/nodetegar.sh
+                            break 2
+                        ;;
+                        "Quit")
+                        break 2
+                        ;;
+                    esac
+                done
+                ;;
+            "Framework dynamic")
+                clear
+                echo "$banner"
+                sleep 2
+                echo "Mohon Maaf Fitur ini Masih Dalam Tahap Pengembangan. Nantikan Update TACP Di Versi berikutnya..........."
+                break 2
+                ;;
+            "Quit")
+                break 2
+                ;;
+            esac
+        done
+        ;;
     "FTP Server")
         sudo ./asset/FtpServer/proftpd.sh
         ;;
@@ -117,7 +153,7 @@ select opt in "${options[@]}"; do
         ;;
     "Remote Server ( OS Ubuntu / OS Debian )")
         sudo ./asset/remote/remote.sh
-    ;;
+        ;;
     "Update package TACP")
         sudo ./asset/updateapp/update.sh
         break
