@@ -89,14 +89,16 @@ function progress_bar {
   local pid=$!
   local delay=0.1
   local chars="/-\|"
+  printf "${GREEN}Starting process:${RESET}\n"
+  printf "${GREEN}[ ] ${RESET} Working on task..."
   while [ $(ps -eo pid | grep $pid) ]; do
     local char="${chars:$((i++%${#chars})):1}"
-    printf "${GREEN}[${char}] ${RESET} Working on task..."
+    printf "\b${char}"
     sleep $delay
-    printf "\r"
   done
-  printf "${GREEN}[${char}] ${RESET} Task completed.${RESET}\n"
+  printf "\b ${GREEN}Task completed.${RESET}\n"
 }
+
 
 
 function clone_repo {
