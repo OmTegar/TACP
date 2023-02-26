@@ -16,7 +16,7 @@ select opt in "${options[@]}"; do
 
     "Install Web Dinamis")
         clear
-        echo "$banner"
+        echo -e "${banner}${RESET}"
         sleep 2
         echo "Select Your Apps :"
         dinamis=("Datasiswa Apps" "Batiku Apps" "Quit")
@@ -28,7 +28,7 @@ select opt in "${options[@]}"; do
                     case $datapil in
                     "datasiswa Apps Basic")
                         clear
-                        echo "$banner"
+                        echo -e "${banner}${RESET}"
                         sleep 2
                         sudo ./asset/WebDinamis/datasiswa/webserver.sh
                         ;;
@@ -43,7 +43,7 @@ select opt in "${options[@]}"; do
                 ;;
             "Batiku Apps")
                 clear
-                echo "$banner"
+                echo -e "${banner}${RESET}"
                 sleep 2
 
                 batikuops=("Batiku Apps Basic" "Batiku Apps + EFS" "Quit")
@@ -52,13 +52,13 @@ select opt in "${options[@]}"; do
                     case $batiku in
                     "Batiku Apps Basic")
                         clear
-                        echo "$banner"
+                        echo -e "${banner}${RESET}"
                         sleep 2
                         sudo ./asset/WebDinamis/batiku/batiku.sh
                         ;;
                     "Batiku Apps + EFS")
                         clear
-                        echo "$banner"
+                        echo -e "${banner}${RESET}"
                         sleep 2
                         batikuEFSlink=("Batiku + EFS Apps Admin Version" "Batiku + EFS Apps client Version" "Quit")
                         echo "Pilih Versi Apps yang anda inginkan :"
@@ -69,7 +69,7 @@ select opt in "${options[@]}"; do
                                 ;;
                             "Batiku + EFS Apps client Version")
                                 clear
-                                echo "$banner"
+                                echo -e "${banner}${RESET}"
                                 sleep 2
                                 sudo ./asset/WebDinamis/batiku/batikuEFS.sh
                                 ;;
@@ -94,7 +94,7 @@ select opt in "${options[@]}"; do
 
     "Install Web Framework")
         clear
-        echo "$banner"
+        echo -e "${banner}${RESET}"
         sleep 2
         echo "Pilih Karakter Framework yang kamu butuhkan ?"
         framework=("Framework static" "Framework dynamic" "Quit")
@@ -102,7 +102,7 @@ select opt in "${options[@]}"; do
             case $framework in
             "Framework static")
                 clear
-                echo "$banner"
+                echo -e "${banner}${RESET}"
                 sleep 2
                 echo "Pilih Framework yang ingin anda install ?"
                 PilFrameworkStatic=("Nodejs" "Quit")
@@ -120,7 +120,7 @@ select opt in "${options[@]}"; do
                 ;;
             "Framework dynamic")
                 clear
-                echo "$banner"
+                echo -e "${banner}${RESET}"
                 sleep 2
                 echo "Mohon Maaf Fitur ini Masih Dalam Tahap Pengembangan. Nantikan Update TACP Di Versi berikutnya..........."
                 break 2
