@@ -1,27 +1,22 @@
 #!/bin/bash
 
-apt-get install apache2 -y
+source ./asset/upgrade.sh
+
+# Check if apache2 is already installed
+if ! command -v apache2 &> /dev/null
+then
+    # If apache2 is not installed, install it with progress bar
+    apt-get install apache2 -y & progress_bar $! 
+    wait
+fi
+
 service apache2 start
 clear
-banner="#####################################################################
-                                                                
-  8888888 8888888888   .8.           ,o888888o.    8 888888888o   
-        8 8888        .888.         8888      88.  8 8888     88. 
-        8 8888       :88888.     ,8 8888        8. 8 8888      88 
-        8 8888      .  88888.    88 8888           8 8888      88 
-        8 8888     .8.  88888.   88 8888           8 8888.   ,88  
-        8 8888    .8 8.  88888.  88 8888           8 888888888P'  
-        8 8888   .8'  8.  88888. 88 8888           8 8888         
-        8 8888  .8'    8.  88888. 8 8888       .8  8 8888         
-        8 8888 .888888888.  88888.  8888     ,88'  8 8888         
-        8 8888.8'        8.  88888.   8888888P'    8 8888         
-                                                                  
-#####################################################################"
-echo "$banner"
+echo -e "${banner}${RESET}"
 sleep 2
 
 # Clone the company-aisyatul repository to /var/www/html
-cd /var/www/html/ && git clone https://github.com/OmTegar/company-profile-sektema.git
+cd /var/www/html/ && clone_repo "https://github.com/OmTegar/company-profile-sektema.git"
 
 # Give permission to access asset directory and index.php file
 chmod 777 -R /var/www/html/company-profile-sektema/
