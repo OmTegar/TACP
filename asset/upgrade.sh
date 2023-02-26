@@ -111,11 +111,12 @@ function clone_repo {
     local char="${chars:$((i++%${#chars})):1}"
     printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ... "
     sleep $delay
-    printf "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+    printf "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
   done
   printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ... Done\n"
-  printf "${GREEN}Directory: $PWD/$repo_name${RESET}\n"
+  printf "${GREEN}Directory: $(pwd)/$repo_name${RESET}\n"
 }
+
 
 
 
