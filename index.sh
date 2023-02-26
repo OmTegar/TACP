@@ -1,8 +1,11 @@
 #!/bin/bash
-apt-get update -y
+
+# source upgrade package....
+source ./asset/upgrade.sh
+
+apt-get update -y & progress_bar $! wait $!
 chmod +x -R asset/
 clear
-source ./asset/upgrade.sh
 echo -e "${banner}${RESET}"
 sleep 2
 
