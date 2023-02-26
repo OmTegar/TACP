@@ -2,7 +2,7 @@
 apt-get update -y
 chmod +x -R asset/
 clear
-./asset/upgrade.sh
+source ./asset/upgrade.sh
 echo "$banner"
 sleep 2
 
