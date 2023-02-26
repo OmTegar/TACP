@@ -3,7 +3,12 @@
 # source upgrade package....
 source ./asset/upgrade.sh
 
-apt-get update -y & progress_bar $! wait $!
+update_status=$(apt-get update -y > /dev/null 2>&1; echo $?)
+if [ $update_status -eq 0 ]; then
+  echo "Update sudah dijalankan sebelumnya, melanjutkan ke perintah berikutnya"
+else
+  apt-get update -y & progress_bar $! wait $!
+fi
 
 sudo ./asset/symlink.sh
 
