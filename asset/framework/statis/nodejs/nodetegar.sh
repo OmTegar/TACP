@@ -2,6 +2,23 @@
 
 
 # lakukan pengecheck an apakah service apache sedang berjalan ?
+
+# Check if Apache2 is installed
+if dpkg -l apache2 > /dev/null 2>&1; then
+  echo "Apache2 is installed, uninstalling and removing all files..."
+  systemctl stop apache2
+  apt-get remove --purge apache2 apache2-utils -y
+  apt-get autoremove -y
+  rm -rf /etc/apache2
+  rm -rf /var/www/html
+  echo "Apache2 has been uninstalled and all files removed."
+else
+  echo "Apache2 is not installed."
+  echo "Installing Nginx..."
+  apt-get install nginx -y
+  echo "Nginx has been installed."
+fi
+
 # lakukan perubahan custom port sesuai keinginan user !!!!!
 
 
@@ -11,7 +28,7 @@
 
 
 # Memperbarui paket dan menginstal paket yang diperlukan
-apt update && apt install nodejs npm nginx -y
+apt update && apt install nodejs npm -y
 
 # Menginstal PM2 untuk memproses aplikasi Node.js
 npm install pm2 -g
