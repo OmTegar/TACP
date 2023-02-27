@@ -1,4 +1,15 @@
 #!/bin/bash
+
+
+# lakukan pengecheck an apakah service apache sedang berjalan ?
+# lakukan perubahan custom port sesuai keinginan user !!!!!
+
+
+
+
+
+
+
 # Memperbarui paket dan menginstal paket yang diperlukan
 apt update && apt install nodejs npm nginx -y
 
