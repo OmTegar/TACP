@@ -37,7 +37,7 @@ echo -e "${banner}${RESET}"
 sleep 2
 
 # Clone the web-dinamis-produktif repository to /var/www/
-cd /var/www/ && git clone https://github.com/OmTegar/web-dinamis-produktif.git
+cd /var/www/ && clone_repo "https://github.com/OmTegar/web-dinamis-produktif.git"
 
 # Give permission to access asset directory and index.php file
 chmod 777 -R /var/www/web-dinamis-produktif/
@@ -84,7 +84,7 @@ clear
 echo -e "${banner}${RESET}"
 sleep 2
 
-if confirm_action "Apakah Anda Ingin Melakukan Konfigurasi Database"; then
+if confirm_action "Apakah Anda Ingin Melakukan Konfigurasi File Koneksi ?"; then
   message "Masukkan RDS endpoint anda: "
   echo "Your Answer : "
   read rds_endpoint
