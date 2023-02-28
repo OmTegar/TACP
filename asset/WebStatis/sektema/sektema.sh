@@ -71,13 +71,6 @@ cat << EOF > 000-default.conf
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 EOF
-ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/
-
-# rm -r /etc/apache2/sites-available/000-default.conf
-# cp /var/www/html/company-profile-sektema/shell/000-default.conf .
-# rm ../sites-enabled/000-default.conf
-# cp 000-default.conf ../sites-enabled/
-# cd ../../../
 
 # Restart Apache2 service
 systemctl restart apache2
