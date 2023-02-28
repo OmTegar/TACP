@@ -22,7 +22,8 @@ fi
 # lakukan perubahan custom port sesuai keinginan user !!!!!
 
 message "Masukkan Port yang anda inginkan , dengan pilihan port bisa dari ( 1 - 9999 ) : "
-read -r port 
+echo "Your Answer : "
+read port
 
 # port=$(echo "$port" | tr -d '[:space:]')
 
