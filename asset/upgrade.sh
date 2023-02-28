@@ -94,8 +94,5 @@ function message {
   for ((i = 1; i <= $message_length + 8; i++)); do
     echo -n "*"
   done
-  echo ""
-  # echo -e "\n\e[31m\e[1m"
-  # echo -e "\e[33m\e[1m$message\e[0m"
-  # echo -e "\e[31m\e[1m"
+  echo " "
 }

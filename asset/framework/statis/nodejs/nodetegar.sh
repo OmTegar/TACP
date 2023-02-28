@@ -27,7 +27,7 @@ read port
 
 # port=$(echo "$port" | tr -d '[:space:]')
 
-echo "$port${RESET}"
+echo "$port"
 
 
 
