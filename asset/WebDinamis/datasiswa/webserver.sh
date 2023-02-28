@@ -22,8 +22,7 @@ fi
 # Check if apache2 is already installed
 if ! command -v apache2 &>/dev/null; then
   # If apache2 is not installed, install it with progress bar
-  apt-get install apache2 -y &
-  progress_bar $!
+  apt-get install apache2 -y & progress_bar $! 
   wait
 fi
 
@@ -137,3 +136,6 @@ else
   message "Lakukan checking Ulang "
   message "Terimakasih Telah Menggunakan Layanan kami"
 fi
+  message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+  message "Lakukan checking Ulang "
+  message "Terimakasih Telah Menggunakan Layanan kami"
