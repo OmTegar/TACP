@@ -224,4 +224,6 @@ clear
 echo -e "${banner}${RESET}"
 sleep 2
 # echo "Terimakasih Telah Menggunakan Layanan kami"
+message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+message "Lakukan checking Ulang "
 message "Terimakasih Telah Menggunakan Layanan kami"
