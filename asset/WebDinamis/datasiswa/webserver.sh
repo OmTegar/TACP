@@ -54,7 +54,7 @@ cat << EOF > 000-default.conf
         #ServerName www.example.com
 
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/html/web-dinamis-produktif/
+        DocumentRoot /var/www/web-dinamis-produktif/
 
         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
@@ -101,13 +101,11 @@ sed -i "s/\"\"/\"$password_rds\"/g" /var/www/web-dinamis-produktif/asset/koneksi
 
 # Check if the modification was successful
 if [ $? -eq 0 ]; then
-  echo "File koneksi.php has been successfully modified."
+  success_message "File koneksi.php has been successfully modified."
 else
-  echo "Failed to modify the file koneksi.php."
+  warning_message "Failed to modify the file koneksi.php."
 fi
-echo "Masukkan password RDS anda"
-sleep 2
-# Login to the RDS database
+message "Masukkan password RDS anda"
 mysql -h $rds_endpoint -u $username_rds -p <<EOF
 
 # Show existing databases
