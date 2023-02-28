@@ -7,7 +7,7 @@ sleep 2
 
 git stash
 git pull
-message "Package TACP Sudah Berhasil Di Update"
-message "Silahkan Ulangi Perintah di bawah :"
-message "1. chmod +x index.sh"
-message "2. sudo ./index.sh"
+message "Package TACP Sudah Berhasil Di Update
+Silahkan Ulangi Perintah di bawah :
+1. chmod +x index.sh
+2. sudo ./index.sh"
