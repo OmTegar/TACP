@@ -6,7 +6,7 @@ source ./asset/upgrade.sh
 if dpkg -l nginx > /dev/null 2>&1; then
   echo "Nginx is installed, uninstalling and removing all files..."
   systemctl stop nginx
-  apt-get remove --purge nginx -y & progress_bar $! 
+  sudo apt-get remove --purge nginx nginx-common nginx-full -y & progress_bar $! 
   apt-get autoremove -y & progress_bar $! 
   rm -rf /etc/nginx
   rm -rf /var/log/nginx

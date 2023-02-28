@@ -19,6 +19,13 @@ else
   echo "Nginx has been installed."
 fi
 
+if ! command -v nginx &> /dev/null
+then
+    # If apache2 is not installed, install it with progress bar
+    apt-get install nginx -y & progress_bar $! 
+    wait
+fi
+
 # lakukan perubahan custom port sesuai keinginan user !!!!!
 
 message "Masukkan Port yang anda inginkan , dengan pilihan port bisa dari ( 81 - 9000 ) : "
