@@ -10,7 +10,7 @@ if dpkg -l nginx > /dev/null 2>&1; then
   apt-get autoremove -y & progress_bar $! 
   rm -rf /etc/nginx
   rm -rf /var/log/nginx
-  rm -rf /var/www/html/
+  rm -rf /var/www/
   echo "Nginx has been uninstalled and all files removed."
 else
   echo "Nginx is not installed."
