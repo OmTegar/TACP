@@ -5,6 +5,7 @@ source ./asset/upgrade.sh
 clear
 echo -e "${banner}${RESET}"
 sleep 2
+PS3='Please enter your choice: '
 statis=("company-profile-sektema" "company-profile-OmTegar" "company-Profile-Aisyatul" "Quit")
 echo "Pilih Apps Yang ingin anda gunakan :"
 select statis in "${statis[@]}"; do
