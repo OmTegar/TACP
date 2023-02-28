@@ -41,12 +41,14 @@ select opt in "${options[@]}"; do
                         echo -e "${banner}${RESET}"
                         sleep 2
                         sudo ./asset/WebDinamis/datasiswa/webserver.sh
+                        break 2
                         ;;
                     "datasiswa Apps Basic + EFS")
                         sudo ./asset/WebDinamis/datasiswa/webserverEFS.sh
+                        break 2
                         ;;
                     "Quit")
-                        break 3
+                        break 2
                         ;;
                     esac
                 done
