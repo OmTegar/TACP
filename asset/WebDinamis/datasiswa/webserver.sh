@@ -1,27 +1,30 @@
 #!/bin/bash
 source ./asset/upgrade.sh
 
-if dpkg -l nginx > /dev/null 2>&1; then
+if dpkg -l nginx >/dev/null 2>&1; then
   message "Nginx is installed, uninstalling and removing all files..."
   systemctl stop nginx
-  sudo apt-get remove --purge nginx nginx-common nginx-full -y & progress_bar $! 
-  apt-get autoremove -y & progress_bar $! 
+  sudo apt-get remove --purge nginx nginx-common nginx-full -y &
+  progress_bar $!
+  apt-get autoremove -y &
+  progress_bar $!
   rm -rf /etc/nginx
   rm -rf /var/log/nginx
   message "Nginx has been uninstalled and all files removed."
 else
   message "Nginx is not installed."
   message "Installing Nginx..."
-  apt-get install apache2 -y & progress_bar $! 
+  apt-get install apache2 -y &
+  progress_bar $!
   message "Nginx has been installed."
 fi
 
 # Check if apache2 is already installed
-if ! command -v apache2 &> /dev/null
-then
-    # If apache2 is not installed, install it with progress bar
-    apt-get install apache2 -y & progress_bar $! 
-    wait
+if ! command -v apache2 &>/dev/null; then
+  # If apache2 is not installed, install it with progress bar
+  apt-get install apache2 -y &
+  progress_bar $!
+  wait
 fi
 
 # Start Apache2 service
@@ -42,7 +45,7 @@ chmod 777 -R /var/www/web-dinamis-produktif/
 
 # Replace the default Apache2 configuration with the custom configuration
 cd /etc/apache2/sites-available/
-cat << EOF > 000-default.conf
+cat <<EOF >000-default.conf
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
@@ -82,31 +85,32 @@ clear
 echo -e "${banner}${RESET}"
 sleep 2
 
-message "Masukkan RDS endpoint anda: "
-echo "Your Answer : "
-read rds_endpoint
+if confirm_action "Apakah Anda Ingin Melakukan Konfigurasi Database"; then
+  message "Masukkan RDS endpoint anda: "
+  echo "Your Answer : "
+  read rds_endpoint
 
-message "Masukkan username RDS anda: "
-echo "Your Answer : "
-read username_rds
+  message "Masukkan username RDS anda: "
+  echo "Your Answer : "
+  read username_rds
 
-message "Masukkan Password RDS anda: "
-echo "Your Answer : "
-read password_rds
+  message "Masukkan Password RDS anda: "
+  echo "Your Answer : "
+  read password_rds
 
-# Modify the file koneksi.php to use the RDS database
-sed -i "s/localhost/$rds_endpoint/g" /var/www/web-dinamis-produktif/asset/koneksi.php
-sed -i "s/root/$username_rds/g" /var/www/web-dinamis-produktif/asset/koneksi.php
-sed -i "s/\"\"/\"$password_rds\"/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+  # Modify the file koneksi.php to use the RDS database
+  sed -i "s/localhost/$rds_endpoint/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+  sed -i "s/root/$username_rds/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+  sed -i "s/\"\"/\"$password_rds\"/g" /var/www/web-dinamis-produktif/asset/koneksi.php
 
-# Check if the modification was successful
-if [ $? -eq 0 ]; then
-  success_message "File koneksi.php has been successfully modified."
-else
-  warning_message "Failed to modify the file koneksi.php."
-fi
-message "Masukkan password RDS anda"
-mysql -h $rds_endpoint -u $username_rds -p <<EOF
+  # Check if the modification was successful
+  if [ $? -eq 0 ]; then
+    success_message "File koneksi.php has been successfully modified."
+  else
+    warning_message "Failed to modify the file koneksi.php."
+  fi
+  message "Masukkan password RDS anda"
+  mysql -h $rds_endpoint -u $username_rds -p <<EOF
 
 # Show existing databases
 show databases;
@@ -128,3 +132,8 @@ SELECT * FROM users;
 
 # Exit the MySQL prompt
 EOF
+else
+  message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+  message "Lakukan checking Ulang "
+  message "Terimakasih Telah Menggunakan Layanan kami"
+fi
