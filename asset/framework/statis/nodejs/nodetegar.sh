@@ -102,7 +102,7 @@ http
 console.log("Server running at http://127.0.0.1:" + port);
 EOF
 
-
+cat index.js
 # # hapus nginx.conf dan buat yang baru dengan EOF include dengan port custom 
 
 
