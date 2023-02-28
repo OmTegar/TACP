@@ -2,6 +2,33 @@
 
 source ./asset/upgrade.sh
 
+# Check if Nginx is installed
+if command -v nginx &> /dev/null
+then
+    echo "Nginx is installed, uninstalling..."
+
+    # Stop Nginx service if it's running
+    systemctl stop nginx
+
+    # Remove Nginx
+    apt-get remove -y nginx
+
+    # Remove Nginx directory
+    rm -rf /etc/nginx
+    rm -rf /var/log/nginx
+    rm -rf /var/www/html/*
+
+    echo "Nginx has been uninstalled"
+else
+    echo "Nginx is not installed, installing Apache2..."
+
+    # Install Apache2
+    apt-get update
+    apt-get install apache2 -y & progress_bar $! 
+
+    echo "Apache2 has been installed"
+fi
+
 # Check if apache2 is already installed
 if ! command -v apache2 &> /dev/null
 then

@@ -7,15 +7,15 @@ source ./asset/upgrade.sh
 if dpkg -l apache2 > /dev/null 2>&1; then
   echo "Apache2 is installed, uninstalling and removing all files..."
   systemctl stop apache2
-  apt-get remove --purge apache2 apache2-utils -y
-  apt-get autoremove -y
+  apt-get remove --purge apache2 apache2-utils -y & progress_bar $! 
+  apt-get autoremove -y & progress_bar $! 
   rm -rf /etc/apache2
   rm -rf /var/www/html
   echo "Apache2 has been uninstalled and all files removed."
 else
   echo "Apache2 is not installed."
   echo "Installing Nginx..."
-  apt-get install nginx -y
+  apt-get install nginx -y & progress_bar $! 
   echo "Nginx has been installed."
 fi
 
@@ -26,14 +26,14 @@ read -r port
 
 # port=$(echo "$port" | tr -d '[:space:]')
 
-echo "$port"
+echo "$port${RESET}"
 
 
 
 
 
 # # Memperbarui paket dan menginstal paket yang diperlukan
-# apt update && apt install nodejs npm -y
+# apt install nodejs npm -y & progress_bar $! 
 
 # # Menginstal PM2 untuk memproses aplikasi Node.js
 # npm install pm2 -g
