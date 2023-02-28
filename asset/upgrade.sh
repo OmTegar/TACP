@@ -42,14 +42,15 @@ function error_message {
 # Function to confirm a user action
 function confirm_action {
   while true; do
-    read -p "${YELLOW}[?] ${1} (y/n) ${RESET}" yn
+    read -p "[?] ${1} (y/n) " yn
     case $yn in
     [Yy]*) return 0 ;;
     [Nn]*) return 1 ;;
-    *) warning_message "Please answer yes or no." ;;
+    *) echo "Please answer yes or no." ;;
     esac
   done
 }
+
 
 function progress_bar {
   local pid=$!
