@@ -39,6 +39,7 @@ cd /var/www/html/ && clone_repo "https://github.com/OmTegar/company-aisyatul.git
 chmod 777 -R /var/www/html/company-aisyatul/
 
 # Replace the default Apache2 configuration with the custom configuration
+cd /etc/apache2/sites-available/
 cat << EOF > 000-default.conf
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
