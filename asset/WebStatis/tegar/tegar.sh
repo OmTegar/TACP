@@ -22,7 +22,6 @@ else
     echo "Nginx is not installed, installing Apache2..."
 
     # Install Apache2
-    apt-get update
     apt-get install apache2 -y & progress_bar $! 
 
     echo "Apache2 has been installed"
