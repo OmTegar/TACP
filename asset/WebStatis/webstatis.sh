@@ -14,18 +14,21 @@ select statis in "${statis[@]}"; do
         message "Aplikasi Anda Sudah Terinstall Dengan Baik"
         message "Lakukan checking Ulang "
         message "Terimakasih Telah Menggunakan Layanan kami"
+        break
         ;;
     "company-profile-OmTegar")
         ./asset/WebStatis/tegar/tegar.sh
         message "Aplikasi Anda Sudah Terinstall Dengan Baik"
         message "Lakukan checking Ulang "
         message "Terimakasih Telah Menggunakan Layanan kami"
+        break
         ;;
     "company-Profile-Aisyatul")
         ./asset/WebStatis/aisyatul/aisyatul.sh
         message "Aplikasi Anda Sudah Terinstall Dengan Baik"
         message "Lakukan checking Ulang "
         message "Terimakasih Telah Menggunakan Layanan kami"
+        break
         ;;
     "Quit")
         break
