@@ -15,7 +15,7 @@ if dpkg -l nginx > /dev/null 2>&1; then
 else
   echo "Nginx is not installed."
   echo "Installing Nginx..."
-  apt-get install nginx -y & progress_bar $! 
+  apt-get install apache2 -y & progress_bar $! 
   echo "Nginx has been installed."
 fi
 
