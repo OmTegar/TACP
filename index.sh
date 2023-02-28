@@ -3,11 +3,15 @@
 # source upgrade package....
 source ./asset/upgrade.sh
 
-update_status=$(apt-get update -y > /dev/null 2>&1; echo $?)
+update_status=$(
+    apt-get update -y >/dev/null 2>&1
+    echo $?
+)
 if [ $update_status -eq 0 ]; then
-  echo "Update sudah dijalankan sebelumnya, melanjutkan ke perintah berikutnya"
+    echo "Update sudah dijalankan sebelumnya, melanjutkan ke perintah berikutnya"
 else
-  apt-get update -y & progress_bar $! wait $!
+    apt-get update -y &
+    progress_bar $! wait $!
 fi
 
 chmod +x -R asset/
@@ -41,10 +45,16 @@ select opt in "${options[@]}"; do
                         echo -e "${banner}${RESET}"
                         sleep 2
                         sudo ./asset/WebDinamis/datasiswa/webserver.sh
+                        message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+                        message "Lakukan checking Ulang "
+                        message "Terimakasih Telah Menggunakan Layanan kami"
                         break 2
                         ;;
                     "datasiswa Apps Basic + EFS")
                         sudo ./asset/WebDinamis/datasiswa/webserverEFS.sh
+                        message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+                        message "Lakukan checking Ulang "
+                        message "Terimakasih Telah Menggunakan Layanan kami"
                         break 2
                         ;;
                     "Quit")
@@ -120,11 +130,11 @@ select opt in "${options[@]}"; do
                 PilFrameworkStatic=("Nodejs" "Quit")
                 select PilFrameworkStatic in "${PilFrameworkStatic[@]}"; do
                     case $PilFrameworkStatic in
-                        "Nodejs")
-                            sudo ./asset/framework/statis/nodejs/nodetegar.sh
-                            break 2
+                    "Nodejs")
+                        sudo ./asset/framework/statis/nodejs/nodetegar.sh
+                        break 2
                         ;;
-                        "Quit")
+                    "Quit")
                         break 2
                         ;;
                     esac

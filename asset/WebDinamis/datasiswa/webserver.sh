@@ -136,6 +136,3 @@ else
   message "Lakukan checking Ulang "
   message "Terimakasih Telah Menggunakan Layanan kami"
 fi
-  message "Aplikasi Anda Sudah Terinstall Dengan Baik"
-  message "Lakukan checking Ulang "
-  message "Terimakasih Telah Menggunakan Layanan kami"
