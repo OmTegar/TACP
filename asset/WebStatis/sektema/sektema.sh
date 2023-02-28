@@ -4,19 +4,18 @@ source ./asset/upgrade.sh
 
 # Check if Nginx is installed
 if dpkg -l nginx > /dev/null 2>&1; then
-  echo "Nginx is installed, uninstalling and removing all files..."
+  message "Nginx is installed, uninstalling and removing all files..."
   systemctl stop nginx
   sudo apt-get remove --purge nginx nginx-common nginx-full -y & progress_bar $! 
   apt-get autoremove -y & progress_bar $! 
   rm -rf /etc/nginx
   rm -rf /var/log/nginx
-  rm -rf /var/www/
-  echo "Nginx has been uninstalled and all files removed."
+  message "Nginx has been uninstalled and all files removed."
 else
-  echo "Nginx is not installed."
-  echo "Installing Nginx..."
+  message "Nginx is not installed."
+  message "Installing Nginx..."
   apt-get install apache2 -y & progress_bar $! 
-  echo "Nginx has been installed."
+  message "Nginx has been installed."
 fi
 
 # Check if apache2 is already installed

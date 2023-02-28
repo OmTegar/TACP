@@ -1,28 +1,38 @@
 #!/bin/bash
+source ./asset/upgrade.sh
 
-clear
-banner="#####################################################################
-                                                                
-  8888888 8888888888   .8.           ,o888888o.    8 888888888o   
-        8 8888        .888.         8888      88.  8 8888     88. 
-        8 8888       :88888.     ,8 8888        8. 8 8888      88 
-        8 8888      .  88888.    88 8888           8 8888      88 
-        8 8888     .8.  88888.   88 8888           8 8888.   ,88  
-        8 8888    .8 8.  88888.  88 8888           8 888888888P'  
-        8 8888   .8'  8.  88888. 88 8888           8 8888         
-        8 8888  .8'    8.  88888. 8 8888       .8  8 8888         
-        8 8888 .888888888.  88888.  8888     ,88'  8 8888         
-        8 8888.8'        8.  88888.   8888888P'    8 8888         
-                                                                  
-#####################################################################"
+if dpkg -l nginx > /dev/null 2>&1; then
+  message "Nginx is installed, uninstalling and removing all files..."
+  systemctl stop nginx
+  sudo apt-get remove --purge nginx nginx-common nginx-full -y & progress_bar $! 
+  apt-get autoremove -y & progress_bar $! 
+  rm -rf /etc/nginx
+  rm -rf /var/log/nginx
+  message "Nginx has been uninstalled and all files removed."
+else
+  message "Nginx is not installed."
+  message "Installing Nginx..."
+  apt-get install apache2 -y & progress_bar $! 
+  message "Nginx has been installed."
+fi
 
-echo "$banner"
-sleep 2
-# Update the package list and install Apache2, PHP, PHP MySQLi, Git, and MariaDB
-apt-get install apache2 php php-mysqli php-mysql git mariadb-server -y
+# Check if apache2 is already installed
+if ! command -v apache2 &> /dev/null
+then
+    # If apache2 is not installed, install it with progress bar
+    apt-get install apache2 -y & progress_bar $! 
+    wait
+fi
+
 # Start Apache2 service
 service apache2 start
 
+# Update the package list and install Apache2, PHP, PHP MySQLi, Git, and MariaDB
+apt-get install php php-mysqli php-mysql git mariadb-server -y
+
+clear
+echo -e "${banner}${RESET}"
+sleep 2
 
 # Clone the web-dinamis-produktif repository to /var/www/
 cd /var/www/ && git clone https://github.com/OmTegar/web-dinamis-produktif.git
@@ -32,24 +42,56 @@ chmod 777 -R /var/www/web-dinamis-produktif/
 
 # Replace the default Apache2 configuration with the custom configuration
 cd /etc/apache2/sites-available/
-rm -r /etc/apache2/sites-available/000-default.conf
-cp /var/www/web-dinamis-produktif/asset/shell/000-default.conf .
-rm ../sites-enabled/000-default.conf
-cp 000-default.conf ../sites-enabled/
-cd ../../../
+cat << EOF > 000-default.conf
+<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/web-dinamis-produktif/
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+EOF
 
 # Restart Apache2 service
 systemctl restart apache2
 
 # Get RDS endpoint address
 clear
-echo "$banner"
+echo -e "${banner}${RESET}"
 sleep 2
-echo "Masukkan RDS endpoint anda: "
+
+message "Masukkan RDS endpoint anda: "
+echo "Your Answer : "
 read rds_endpoint
-echo "Masukkan username RDS anda: "
+
+message "Masukkan username RDS anda: "
+echo "Your Answer : "
 read username_rds
-echo "Masukkan Password RDS anda: "
+
+message "Masukkan Password RDS anda: "
+echo "Your Answer : "
 read password_rds
 
 # Modify the file koneksi.php to use the RDS database

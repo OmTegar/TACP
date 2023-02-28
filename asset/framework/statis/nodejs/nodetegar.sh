@@ -5,18 +5,17 @@ source ./asset/upgrade.sh
 
 # Check if Apache2 is installed
 if dpkg -l apache2 > /dev/null 2>&1; then
-  echo "Apache2 is installed, uninstalling and removing all files..."
+  message "Apache2 is installed, uninstalling and removing all files..."
   systemctl stop apache2
   apt-get remove --purge apache2 apache2-utils -y & progress_bar $! 
   apt-get autoremove -y & progress_bar $! 
   rm -rf /etc/apache2
-  rm -rf /var/www/html
-  echo "Apache2 has been uninstalled and all files removed."
+  message "Apache2 has been uninstalled and all files removed."
 else
-  echo "Apache2 is not installed."
-  echo "Installing Nginx..."
+  message "Apache2 is not installed."
+  message "Installing Nginx..."
   apt-get install nginx -y & progress_bar $! 
-  echo "Nginx has been installed."
+  message "Nginx has been installed."
 fi
 
 if ! command -v nginx &> /dev/null
