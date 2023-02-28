@@ -10,7 +10,8 @@ then
     systemctl stop nginx
 
     # Remove Nginx
-    apt-get remove -y nginx
+    apt-get remove --purge -y nginx
+    apt-get autoremove -y & progress_bar $! 
 
     # Remove Nginx directory
     rm -rf /etc/nginx
