@@ -15,7 +15,6 @@ then
 
     # Remove Nginx directory
     rm -rf /etc/nginx
-    rm -rf /var/log/nginx
     rm -rf /var/www/html/*
 
     echo "Nginx has been uninstalled"
