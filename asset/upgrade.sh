@@ -44,62 +44,26 @@ function confirm_action {
   while true; do
     read -p "${YELLOW}[?] ${1} (y/n) ${RESET}" yn
     case $yn in
-        [Yy]* ) return 0;;
-        [Nn]* ) return 1;;
-        * ) warning_message "Please answer yes or no.";;
+    [Yy]*) return 0 ;;
+    [Nn]*) return 1 ;;
+    *) warning_message "Please answer yes or no." ;;
     esac
   done
 }
 
-# Function to display a progress bar in green color
-# function progress_bar {
-#   local pid=$!
-#   local delay=0.1
-#   local spinstr='|/-\'
-#   while [ $(ps -eo pid | grep $pid) ]; do
-#     local temp=${spinstr#?}
-#     printf "${GREEN} [%c] ${RESET}" "$spinstr"
-#     spinstr=$temp${spinstr%"$temp"}
-#     sleep $delay
-#     printf "\b\b\b\b\b\b"
-#   done
-#   printf "    \b\b\b\b"
-# }
-
-# function progress_bar {
-#   local pid=$!
-#   local delay=0.1
-#   local i=0
-#   local progress=0
-#   local chars="/-\|"
-#   printf "${GREEN}Starting process:${RESET}\n"
-#   while [ $(ps -eo pid | grep $pid) ]; do
-#     local char="${chars:$((i++%${#chars})):1}"
-#     printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" $progress
-#     printf "${GREEN}${char}" $progress
-#     sleep $delay
-#     printf "\b\b\b"
-#     progress=$(($progress + 10))
-#   done
-#   printf "${GREEN}[${char}] ${RESET}${YELLOW}%3d%% ${RESET}" 100
-#   printf "\n${GREEN}Process finished!${RESET}\n"
-# }
-
 function progress_bar {
   local pid=$!
   local delay=0.1
-  local i=0
   local chars="/-\|"
-  printf "${GREEN}Working on task...${RESET}"
+  printf "${GREEN}Starting process:${RESET}\n"
   while [ $(ps -eo pid | grep $pid) ]; do
-    local char="${chars:$((i++%${#chars})):1}"
-    printf "${GREEN}[${char}]${RESET}"
+    local char="${chars:$((i++ % ${#chars})):1}"
+    printf "${GREEN}[${char}] ${RESET} Working on task..."
     sleep $delay
-    printf "\b\b\b"
+    printf "\r"
   done
-  printf "${GREEN}[${CHECK_MARK}]${RESET} Task completed.${RESET}\n"
+  printf "\n${GREEN}[${char}] ${RESET} Task completed.${RESET}\n"
 }
-
 
 function clone_repo {
   local repo_url=$1
@@ -110,7 +74,7 @@ function clone_repo {
   local delay=0.1
   local chars="/-\|"
   while [ $(ps -eo pid | grep $pid) ]; do
-    local char="${chars:$((i++%${#chars})):1}"
+    local char="${chars:$((i++ % ${#chars})):1}"
     printf "${GREEN}[${char}] ${RESET}Cloning $repo_name ... "
     sleep $delay
     printf "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
@@ -119,12 +83,17 @@ function clone_repo {
   printf "${GREEN}Directory: $(pwd)/$repo_name${RESET}\n"
 }
 
-
-
-
-
-
-
-
-
-
+function message {
+  local message=$1
+  message_length=${#message}
+  for ((i = 1; i <= $message_length + 8; i++)); do
+    echo -n "*"
+  done
+  printf "\n* %s *\n" "$message"
+  for ((i = 1; i <= $message_length + 8; i++)); do
+    echo -n "*"
+  done
+  echo -e "\n\e[31m\e[1m"
+  echo -e "\e[33m\e[1m$message\e[0m"
+  echo -e "\e[31m\e[1m"
+}

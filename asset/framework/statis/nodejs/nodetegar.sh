@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source ./asset/upgrade.sh
 
 # lakukan pengecheck an apakah service apache sedang berjalan ?
 
@@ -21,53 +21,51 @@ fi
 
 # lakukan perubahan custom port sesuai keinginan user !!!!!
 
+message "Masukkan Port yang anda inginkan , dengan pilihan port bisa dari ( 1 - 9999 ) : "
+read -r port 
+
+# port=$(echo "$port" | tr -d '[:space:]')
+
+echo "$port"
 
 
 
 
 
+# # Memperbarui paket dan menginstal paket yang diperlukan
+# apt update && apt install nodejs npm -y
 
-# Memperbarui paket dan menginstal paket yang diperlukan
-apt update && apt install nodejs npm -y
+# # Menginstal PM2 untuk memproses aplikasi Node.js
+# npm install pm2 -g
 
-# Menginstal PM2 untuk memproses aplikasi Node.js
-npm install pm2 -g
+# clear
+# echo -e "${banner}${RESET}"
+# sleep 2
 
-clear
-banner="#####################################################################
-                                                                
-  8888888 8888888888   .8.           ,o888888o.    8 888888888o   
-        8 8888        .888.         8888      88.  8 8888     88. 
-        8 8888       :88888.     ,8 8888        8. 8 8888      88 
-        8 8888      .  88888.    88 8888           8 8888      88 
-        8 8888     .8.  88888.   88 8888           8 8888.   ,88  
-        8 8888    .8 8.  88888.  88 8888           8 888888888P'  
-        8 8888   .8'  8.  88888. 88 8888           8 8888         
-        8 8888  .8'    8.  88888. 8 8888       .8  8 8888         
-        8 8888 .888888888.  88888.  8888     ,88'  8 8888         
-        8 8888.8'        8.  88888.   8888888P'    8 8888         
-                                                                  
-#####################################################################"
-echo "$banner"
-sleep 2
+# # Menjalankan aplikasi Node.js menggunakan PM2
+# cd /var/www
+# git clone https://github.com/OmTegar/node-website-static1.git
+# cd node-website-static1/
 
-# Menjalankan aplikasi Node.js menggunakan PM2
-cd /var/www
-git clone https://github.com/OmTegar/node-website-static1.git
-cd node-website-static1/
-npm install
-pm2 startup
-pm2 delete index
-pm2 start index.js
+# # ubah index jadi nama apapun
+# # buat index baru dengan EOF include dengan port custom
+# # hapus nginx.conf dan buat yang baru dengan EOF include dengan port custom 
 
-# Mengganti konfigurasi default Nginx dengan konfigurasi yang disediakan
-rm -r /etc/nginx/nginx.conf
-cp app/shell/nginx.conf /etc/nginx/
 
-# Merestart Nginx
-systemctl restart nginx
 
-clear
-echo "$banner"
-sleep 2
-echo "Terimakasih Telah Menggunakan Layanan kami"
+# npm install
+# pm2 startup
+# pm2 delete index
+# pm2 start index.js
+
+# # Mengganti konfigurasi default Nginx dengan konfigurasi yang disediakan
+# rm -r /etc/nginx/nginx.conf
+# cp app/shell/nginx.conf /etc/nginx/
+
+# # Merestart Nginx
+# systemctl restart nginx
+
+# clear
+# echo -e "${banner}${RESET}"
+# sleep 2
+# echo "Terimakasih Telah Menggunakan Layanan kami"
