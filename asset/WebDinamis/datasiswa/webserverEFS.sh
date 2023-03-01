@@ -37,7 +37,7 @@ sleep 2
 efs=$(df -h)
 efsbaru='/var/www/web-project3/asset/images/'
 message "Mount Point EFS Anda Saat ini:"
-message "$efs"
+echo "$efs"
 sleep 2
 
 if confirm_action "Untuk Menjalankan Apps ini Anda harus merubah Mount Point EFS anda menjadi : $efsbaru"; then
@@ -123,7 +123,6 @@ EOF
       echo "Failed to modify the file koneksi.php."
     fi
     echo "Masukkan password RDS anda"
-    sleep 2
     # Login to the RDS database
     mysql -h $rds_endpoint -u $username_rds -p <<EOF
 
