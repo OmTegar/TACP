@@ -87,13 +87,13 @@ select opt in "${options[@]}"; do
                         select batlink in "${batikuEFSlink[@]}"; do
                             case $batlink in
                             "Batiku + EFS Apps Admin Version")
-                                sudo ./asset/WebDinamis/batiku/AdminBatikuEFS.sh
+                                # sudo ./asset/WebDinamis/batiku/AdminBatikuEFS.sh
                                 ;;
                             "Batiku + EFS Apps client Version")
                                 clear
                                 echo -e "${banner}${RESET}"
                                 sleep 2
-                                sudo ./asset/WebDinamis/batiku/batikuEFS.sh
+                                # sudo ./asset/WebDinamis/batiku/batikuEFS.sh
                                 ;;
                             "Quit")
                                 break 3

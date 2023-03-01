@@ -1,30 +1,22 @@
 #!/bin/bash
+source ./asset/upgrade.sh
 
 #install proftpd
-apt-get install proftpd -y
+apt-get install proftpd -y & progress_bar $!
 clear
-banner="#####################################################################
-                                                                
-  8888888 8888888888   .8.           ,o888888o.    8 888888888o   
-        8 8888        .888.         8888      88.  8 8888     88. 
-        8 8888       :88888.     ,8 8888        8. 8 8888      88 
-        8 8888      .  88888.    88 8888           8 8888      88 
-        8 8888     .8.  88888.   88 8888           8 8888.   ,88  
-        8 8888    .8 8.  88888.  88 8888           8 888888888P'  
-        8 8888   .8'  8.  88888. 88 8888           8 8888         
-        8 8888  .8'    8.  88888. 8 8888       .8  8 8888         
-        8 8888 .888888888.  88888.  8888     ,88'  8 8888         
-        8 8888.8'        8.  88888.   8888888P'    8 8888         
-                                                                  
-#####################################################################"
+echo -e "${banner}${RESET}"
 sleep 2
-echo "Masukkan Server Name yang anda inginkan :"
+
+message "Masukkan Server Name yang anda inginkan :" 
+echo "Your Answer : "
 read ServerName
 clear
-echo "$banner"
+
+echo -e "${banner}${RESET}"
 sleep 2
-echo "Input Menggunakan angka !!!!!"
-echo "Masukkan port FTP Server yang anda inginkan :"
+message "Input Menggunakan angka !!!!!"
+message "Masukkan port FTP Server yang anda inginkan :"
+echo "Your Answer : "
 read port
 
 #ubah file proftpd.conf
@@ -252,7 +244,8 @@ new_user="$ServerName"
 adduser $new_user
 
 # Meminta input password baru
-echo "Masukkan password FTP server anda: "
+message "Masukkan password FTP server anda: "
+echo "Your Answer : "
 read -s password
 
 # Menentukan password untuk user baru
@@ -262,7 +255,7 @@ echo "$new_user:$password" | chpasswd
 usermod -aG sudo $new_user
 
 # Memberikan pesan bahwa pengguna baru berhasil ditambahkan
-echo "Pengguna $new_user berhasil ditambahkan."
+message "Pengguna $new_user berhasil ditambahkan."
 
 #setup
 systemctl restart proftpd
@@ -271,10 +264,10 @@ mkdir ftp
 chmod 777 /home/ftp
 
 clear
-echo "$banner"
+echo -e "${banner}${RESET}"
 sleep 2
 echo " "
-echo "Berikut Data FTP Server Anda:" > /home/ftp/ftp.txt
+message "Berikut Data FTP Server Anda:" > /home/ftp/ftp.txt
 echo "#############################" >> /home/ftp/ftp.txt
 echo "IP           = IP PUBLIC "         >> /home/ftp/ftp.txt
 echo "Server Name  = $ServerName"    >> /home/ftp/ftp.txt
@@ -284,9 +277,9 @@ echo "#############################" >> /home/ftp/ftp.txt
 cat /home/ftp/ftp.txt
 echo " "
 echo "Silahkan Catat Data Tersebut !!"
-echo "Secara Default Target FTP Server Berada di ( /home/ftp )"
+message "Secara Default Target FTP Server Berada di ( /home/ftp )"
 sleep 1
-echo "Apakah Anda ingin pergi ke directory tersebut ?"
+message "Apakah Anda ingin pergi ke directory tersebut ?"
 pil=("Yes" "No")
 select pil in "${pil[@]}"; do
   case $pil in

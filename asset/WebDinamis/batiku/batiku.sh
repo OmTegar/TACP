@@ -82,6 +82,7 @@ EOF
 
         # Restart Apache2 service
         systemctl restart apache2
+        
         clear
         echo -e "${banner}${RESET}"
         sleep 2
@@ -164,7 +165,7 @@ EOF
         else
             message "Terimakasih Telah Menggunakan Layanan kami"
         fi
-
+        break
         ;;
     "No")
         message "Mungkin Apps lain ada yang cocok untukmu"
