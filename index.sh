@@ -127,7 +127,7 @@ select opt in "${options[@]}"; do
                 echo -e "${banner}${RESET}"
                 sleep 2
                 echo "Pilih Framework yang ingin anda install ?"
-                PilFrameworkStatic=("NodeJS" "ReactJS" "Quit")
+                PilFrameworkStatic=("NodeJS" "ReactJS" "NextJS" "Quit")
                 select PilFrameworkStatic in "${PilFrameworkStatic[@]}"; do
                     case $PilFrameworkStatic in
                     "Nodejs")
@@ -136,6 +136,10 @@ select opt in "${options[@]}"; do
                         ;;
                     "ReactJS")
                         sudo ./asset/framework/statis/reactjs/reacttegar.sh
+                        break 2
+                        ;;
+                    "NextJS")
+                        sudo ./asset/framework/statis/nextjs/nexttegar.sh
                         break 2
                         ;;
                     "Quit")
