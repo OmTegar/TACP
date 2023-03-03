@@ -130,7 +130,7 @@ select opt in "${options[@]}"; do
                 PilFrameworkStatic=("NodeJS" "ReactJS" "NextJS" "Quit")
                 select PilFrameworkStatic in "${PilFrameworkStatic[@]}"; do
                     case $PilFrameworkStatic in
-                    "Nodejs")
+                    "NodeJS")
                         sudo ./asset/framework/statis/nodejs/nodetegar.sh
                         break 2
                         ;;
