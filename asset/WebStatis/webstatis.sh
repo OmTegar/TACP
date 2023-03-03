@@ -6,7 +6,7 @@ clear
 echo -e "${banner}${RESET}"
 sleep 2
 PS3='Please enter your choice: '
-statis=("Company Profile Sektema" "Company Profile OmTegar" "Company Profile Aisyatul" "Mini Games By OmTegar ( Basics )" "Quit")
+statis=("Company Profile Sektema" "Company Profile OmTegar" "Company Profile Aisyatul" "Bootstrap Template Studio" "Mini Games By OmTegar ( Basics )" "Quit")
 echo "Pilih Apps Yang ingin anda gunakan :"
 select statis in "${statis[@]}"; do
     case $statis in
@@ -26,6 +26,13 @@ select statis in "${statis[@]}"; do
         ;;
     "Company Profile Aisyatul")
         ./asset/WebStatis/aisyatul/aisyatul.sh
+        message "Aplikasi Anda Sudah Terinstall Dengan Baik"
+        message "Lakukan checking Ulang "
+        message "Terimakasih Telah Menggunakan Layanan kami"
+        break
+        ;;
+    "Bootstrap Template Studio")
+        ./asset/WebStatis/bootstrap/template.sh
         message "Aplikasi Anda Sudah Terinstall Dengan Baik"
         message "Lakukan checking Ulang "
         message "Terimakasih Telah Menggunakan Layanan kami"
