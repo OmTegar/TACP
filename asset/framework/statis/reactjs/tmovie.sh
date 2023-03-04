@@ -40,7 +40,7 @@ read port
 clear
 echo -e "${banner}${RESET}"
 sleep 2
-message "Masukkan Api themoviedb yang anda Miliki : "
+message "Masukkan Api themoviedb yang anda Miliki ( https://www.themoviedb.org ) : "
 echo "Your Answer : "
 read api
 
