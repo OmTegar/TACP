@@ -57,7 +57,6 @@ cd reactjs-template-omtegar/
 # start configurasi
 npm install
 npm run build
-pm2 delete 0
 pm2 serve build $port --spa
 pm2 startup
 pm2 save

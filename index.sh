@@ -126,7 +126,7 @@ select opt in "${options[@]}"; do
                 clear
                 echo -e "${banner}${RESET}"
                 sleep 2
-                echo "Pilih Framework yang ingin anda install ?"
+                message "Pilih Framework yang ingin anda install ?"
                 PilFrameworkStatic=("NodeJS" "ReactJS" "NextJS" "Quit")
                 select PilFrameworkStatic in "${PilFrameworkStatic[@]}"; do
                     case $PilFrameworkStatic in
@@ -135,8 +135,27 @@ select opt in "${options[@]}"; do
                         break 2
                         ;;
                     "ReactJS")
-                        sudo ./asset/framework/statis/reactjs/reacttegar.sh
-                        break 2
+                        clear
+                        echo -e "${banner}${RESET}"
+                        sleep 2
+                        message "Pilih React JS yang ingin anda install ?"
+                        pilreact=("ReactJS Template 1 - ByOmTegar" "ReactJS Template 2 - ByOmTegar" "Quit")
+                        select pilreact in "${pilreact[@]}"; do
+                            case $pilreact in
+                            "ReactJS Template 1 - ByOmTegar")
+                                sudo ./asset/framework/statis/reactjs/template1.sh
+                                break 3
+                                ;;
+                            "ReactJS Template 2 - ByOmTegar")
+                                sudo ./asset/framework/statis/reactjs/template2.sh
+                                break 3
+                                ;;
+                            "Quit")
+                                break 3
+                                ;;
+                            esac
+                        done
+
                         ;;
                     "NextJS")
                         sudo ./asset/framework/statis/nextjs/nexttegar.sh
