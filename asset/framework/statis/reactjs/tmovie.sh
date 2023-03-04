@@ -37,6 +37,13 @@ message "Masukkan Port yang anda inginkan , dengan pilihan port bisa dari ( 81 -
 echo "Your Answer : "
 read port
 
+clear
+echo -e "${banner}${RESET}"
+sleep 2
+message "Masukkan Api themoviedb yang anda Miliki : "
+echo "Your Answer : "
+read api
+
 # Memperbarui paket dan menginstal paket yang diperlukan
 cd ~
 curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
@@ -53,10 +60,23 @@ echo -e "${banner}${RESET}"
 sleep 2
 
 # Menjalankan aplikasi Node.js menggunakan PM2
-cd /var/www && clone_repo "https://github.com/OmTegar/reactjs-template-omtegar.git"
-cd reactjs-template-omtegar/
+cd /var/www && clone_repo "https://github.com/OmTegar/react-movie.git"
+cd react-movie/src/api/
+
+# configuration API
+cat << EOF > apiConfig.js
+const apiConfig = {
+    baseUrl: 'https://api.themoviedb.org/3/',
+    apiKey: '$api',  // get from themoviedb.org
+    originalImage: (imgPath) => `https://image.tmdb.org/t/p/original/${imgPath}`,
+    w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500/${imgPath}`
+}
+
+export default apiConfig;
+EOF
 
 # start configurasi
+cd /var/www/react-movie/
 npm install
 npm run build
 pm2 serve build $port --spa
@@ -125,7 +145,7 @@ http {
 	##
 
 	include /etc/nginx/conf.d/*.conf;
-	
+	#include /etc/nginx/sites-enabled/*;
 	server {
 		listen 		80;
 		listen 		[::]:80;

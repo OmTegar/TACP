@@ -139,11 +139,15 @@ select opt in "${options[@]}"; do
                         echo -e "${banner}${RESET}"
                         sleep 2
                         message "Pilih React JS yang ingin anda install ?"
-                        pilreact=("ReactJS Template 1 - By OmTegar" "ReactJS Template 2 - By OmTegar" "Quit")
+                        pilreact=("ReactJS Template 1 - By OmTegar" "ReactJS T-movie By OmTegar" "ReactJS Template 2 - By OmTegar" "Quit")
                         select pilreact in "${pilreact[@]}"; do
                             case $pilreact in
                             "ReactJS Template 1 - By OmTegar")
                                 sudo ./asset/framework/statis/reactjs/template1.sh
+                                break 3
+                                ;;
+                            "ReactJS T-movie By OmTegar")
+                                sudo ./asset/framework/statis/reactjs/tmovie.sh
                                 break 3
                                 ;;
                             "ReactJS Template 2 - By OmTegar")

@@ -30,7 +30,9 @@ then
 fi
 
 # lakukan perubahan custom port sesuai keinginan user !!!!!
-
+clear
+echo -e "${banner}${RESET}"
+sleep 2
 message "Masukkan Port yang anda inginkan , dengan pilihan port bisa dari ( 81 - 9000 ) : "
 echo "Your Answer : "
 read port
