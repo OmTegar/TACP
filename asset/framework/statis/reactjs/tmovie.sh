@@ -64,16 +64,15 @@ cd /var/www && clone_repo "https://github.com/OmTegar/react-movie.git"
 cd react-movie/src/api/
 
 # configuration API
-cat << EOF > apiConfig.js
-const apiConfig = {
-    baseUrl: 'https://api.themoviedb.org/3/',
-    apiKey: '$api',  // get from themoviedb.org
-    originalImage: (imgPath) => `https://image.tmdb.org/t/p/original/${imgPath}`,
-    w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500/${imgPath}`
-}
+echo "const apiConfig = {" > apiConfig.js
+echo "    baseUrl: 'https://api.themoviedb.org/3/'," >> apiConfig.js
+echo "    apiKey: '$api',  // get from themoviedb.org" >> apiConfig.js
+echo "    originalImage: (imgPath) => \`https://image.tmdb.org/t/p/original/\${imgPath}\`," >> apiConfig.js
+echo "    w500Image: (imgPath) => \`https://image.tmdb.org/t/p/w500/\${imgPath}\`" >> apiConfig.js
+echo "}" >> apiConfig.js
+echo "" >> apiConfig.js
+echo "export default apiConfig;" >> apiConfig.js
 
-export default apiConfig;
-EOF
 
 # start configurasi
 cd /var/www/react-movie/
