@@ -112,7 +112,7 @@ EOF
 
 npm install
 pm2 startup
-pm2 delete index
+pm2 delete 0
 pm2 start index.js
 
 # Mengganti konfigurasi default Nginx dengan konfigurasi yang disediakan
