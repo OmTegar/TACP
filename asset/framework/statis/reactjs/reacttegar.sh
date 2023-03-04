@@ -37,10 +37,11 @@ read port
 
 # Memperbarui paket dan menginstal paket yang diperlukan
 cd ~
-curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh & progress_bar $!
-nano /tmp/nodesource_setup.sh
+curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+# nano /tmp/nodesource_setup.sh
 sudo bash /tmp/nodesource_setup.sh
-apt install nodejs npm -y & progress_bar $!
+sudo apt install nodejs -y & progress_bar $!
+apt install npm -y & progress_bar $!
 
 # Menginstal PM2 untuk memproses aplikasi Node.js
 npm install pm2 -g
