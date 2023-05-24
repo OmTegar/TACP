@@ -102,6 +102,12 @@ if confirm_action "Apakah Anda Ingin Melakukan Konfigurasi File Koneksi ?"; then
   sed -i "s/root/$username_rds/g" /var/www/web-dinamis-produktif/asset/koneksi.php
   sed -i "s/\"\"/\"$password_rds\"/g" /var/www/web-dinamis-produktif/asset/koneksi.php
 
+  # sed -i "s/localhost/44.201.53.228/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+  # sed -i "s/root/tegar/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+  # sed -i "s/\"\"/\"rahasia\"/g" /var/www/web-dinamis-produktif/asset/koneksi.php
+
+
+
   # Check if the modification was successful
   if [ $? -eq 0 ]; then
     success_message "File koneksi.php has been successfully modified."

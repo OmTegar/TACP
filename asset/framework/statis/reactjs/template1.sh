@@ -132,7 +132,7 @@ http {
 		server_name	_;
 	
 		location / {
-			proxy_pass http://localhost:$port;
+			proxy_pass http://localhost:3000/api/guru/v1/;
 		}
 	}
 }

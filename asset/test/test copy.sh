@@ -1,0 +1,106 @@
+#!/bin/bash
+
+#   IKI SENG USERDATA MYTEMPLATE
+RDSmountpoint="database-1.cgu4ysargwic.us-east-1.rds.amazonaws.com"
+UsernameRDS="admin"
+passwordRDS="admin123"
+EFSid="fs-0c8f4fdd7b12c2085"
+
+sudo apt update
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install nodejs -y
+
+sudo apt-get install rsync build-essential git mysql-client -y
+
+sudo apt install binutils -y
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+./build-deb.sh
+sudo apt-get -y install ./build/amazon-efs-utils*deb
+
+cd /home/ubuntu
+sudo mkdir efs
+sudo mount -t efs -o tls $EFSid:/ efs
+df -h
+
+cd /home/ubuntu/ && git clone https://github.com/adinur21/ukk.git
+cd ukk/ && npm install
+
+npm install --save express
+npm install -g nodemon
+npm install -g cors
+npm install -g body-parser
+
+cd /home/ubuntu/ukk/src/model/
+sudo cat <<EOF >dbConnection.js
+const mySql = require("mysql")
+
+const db = mySql.createPool({
+  host: "$RDSmountpoint",
+  user: "$UsernameRDS",
+  password: "$passwordRDS",
+  database: "cloud_api"
+})
+
+exports.db = db;
+EOF
+
+cd /home/ubuntu/
+sudo cat <<EOF >rsync_to_efs.sh
+sudo rsync -azP /home/ubuntu/ukk/ /home/ubuntu/efs/
+EOF
+chmod +x rsync_to_efs.sh
+
+cd /home/ubuntu/efs/
+sudo /home/ubuntu/./rsync_to_efs.sh
+
+# sudo crontab -e -u root --> untuk konfigurasi efs
+# Mengeset perintah cron
+echo "*/15 * * * * /home/ubuntu/rsync_to_efs.sh >/dev/null 2>&1" > /tmp/cronjob
+# Menambahkan perintah cron ke crontab root
+sudo crontab /tmp/cronjob -u root
+# Membersihkan file sementara
+rm /tmp/cronjob
+
+
+
+
+
+#  IKI SCRIPT GAWE MASUKIN DATA NANG RDS
+mysql -h database-1.cgu4ysargwic.us-east-1.rds.amazonaws.com -u admin -p <<EOF
+
+# Show existing databases
+show databases;
+
+# Create the datasiswa database
+create database cloud_api;
+
+# Use the datasiswa database
+use cloud_api;
+
+# create table
+  CREATE TABLE guru (
+  id_guru int(11) AUTO_INCREMENT PRIMARY KEY,
+  nama_guru varchar(255),
+  mapel_guru varchar(255),
+  sekolah_guru varchar(255)
+  );
+
+# Import the SQL script to create tables and populate data
+INSERT INTO guru (nama_guru, mapel_guru, sekolah_guru) VALUES ('Adi','cloud','SMK Telkom Malang');
+INSERT INTO guru (nama_guru, mapel_guru, sekolah_guru) VALUES ('OmTegar','Kuli Jawa','STM Kuli Telkom');
+INSERT INTO guru (nama_guru, mapel_guru, sekolah_guru) VALUES ('Nopal','Kuli Jawa','STM Kuli Telkom');
+INSERT INTO guru (nama_guru, mapel_guru, sekolah_guru) VALUES ('Julpan','Kuli Jawa','STM Kuli Telkom');
+
+# Show tables in the datasiswa database
+show tables;
+
+# Select data from the users table
+SELECT * FROM guru;
+
+# Exit the MySQL prompt
+EOF
+
+
+
+
