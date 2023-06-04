@@ -195,6 +195,10 @@ run_reactjs_framework() {
     done
 }
 
+run_Database_server() {
+    sudo ./asset/DatabaseServer/database.sh
+}
+
 # Fungsi untuk menjalankan skrip FTP server
 run_ftp_server() {
     sudo ./asset/FtpServer/proftpd.sh

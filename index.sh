@@ -20,7 +20,7 @@ echo -e "${banner}${RESET}"
 sleep 2
 
 PS3='Please enter your choice: '
-options=("Install Web Static" "Install Web Dinamis" "Install Web Framework" "FTP Server" "Auto Mount EBS" "Remote Server ( OS Ubuntu / OS Debian )" "Update package TACP" "Quit")
+options=("Install Web Static" "Install Web Dinamis" "Install Web Framework" "FTP Server" "Database Server" "Auto Mount EBS" "Remote Server ( OS Ubuntu / OS Debian )" "Update package TACP" "Quit")
 select opt in "${options[@]}"; do
     case $opt in
         "Install Web Static")
@@ -34,6 +34,9 @@ select opt in "${options[@]}"; do
             ;;
         "FTP Server")
             run_ftp_server
+            ;;
+        "Database Server")
+            run_Database_server
             ;;
         "Auto Mount EBS")
             run_auto_mount_ebs
