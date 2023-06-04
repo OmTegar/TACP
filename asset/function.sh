@@ -35,10 +35,10 @@ run_web_dinamis() {
     select app_option in "${app_options[@]}"; do
         case $app_option in
             "Datasiswa Apps")
-                run_datasiswa_app
+                sudo ./asset/WebDinamis/datasiswa/webserver.sh
                 ;;
             "Batiku Apps")
-                run_batiku_app
+                sudo ./asset/WebDinamis/batiku/batiku.sh
                 ;;
             "Quit")
                 break
@@ -58,14 +58,12 @@ run_datasiswa_app() {
             "Datasiswa Apps Basic")
                 sudo ./asset/WebDinamis/datasiswa/webserver.sh
                 message "Aplikasi Anda Sudah Terinstall Dengan Baik"
-                message "Lakukan checking Ulang"
                 message "Terimakasih Telah Menggunakan Layanan kami"
                 break
                 ;;
             "Datasiswa Apps Basic + EFS")
                 sudo ./asset/WebDinamis/datasiswa/webserverEFS.sh
                 message "Aplikasi Anda Sudah Terinstall Dengan Baik"
-                message "Lakukan checking Ulang"
                 message "Terimakasih Telah Menggunakan Layanan kami"
                 break
                 ;;
