@@ -89,11 +89,13 @@ echo -e "${banner}${RESET}"
 sleep 2
 echo " "
 message "Berikut Data User MySQL Server Anda:" > /home/database/user.txt
-echo "#############################" >> /home/database/user.txt
-echo "| Username Default  | root   |" >> /home/database/user.txt
-echo "| Password Default  | root   |" >> /home/database/user.txt
+echo "#####################################" >> /home/database/user.txt
+echo "| Username Default  | root          |" >> /home/database/user.txt
+echo "| Password Default  | root          |" >> /home/database/user.txt
 echo "| Username          | $Username   |" >> /home/database/user.txt
 echo "| Password          | $Password   |" >> /home/database/user.txt
-echo "#############################" >> /home/database/user.txt
+echo "#####################################" >> /home/database/user.txt
 cat /home/database/user.txt
 echo " "
+message "Data User Yang Sudah Di Buat Akan Di Simpan Di ( /home/database/user.txt )"
+sleep 2
