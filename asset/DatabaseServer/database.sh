@@ -6,6 +6,13 @@ source ./asset/view.sh
 # Create directory for user.txt
 mkdir -p /home/database
 
+# Set debconf selections for phpMyAdmin configuration
+echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/app-password-confirm password root" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password root" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password root" | sudo debconf-set-selections
+echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
+
 # Install PHP, phpMyAdmin, and MariaDB Server
 sudo apt install php phpmyadmin mariadb-server -y 
 clear
