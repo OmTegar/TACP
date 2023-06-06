@@ -2,7 +2,9 @@
 
 # Update package list
 source ./asset/view.sh
-# source ./asset/function.sh
+
+# Create directory for user.txt
+mkdir -p /home/database
 
 # Install PHP, phpMyAdmin, and MariaDB Server
 sudo apt install php phpmyadmin mariadb-server -y 
