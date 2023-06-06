@@ -21,11 +21,13 @@ y
 y
 EOF
 
-message "Masukkan Username MySQL yang anda inginkan :" 
+# Masukkan Username Mysql yang anda inginkan
+message "Masukkan Username Mysql yang anda inginkan :" 
 echo "Your Answer : "
 read Username
 
-message "Masukkan Password MySQL yang anda inginkan :" 
+# Masukkan Password Mysql yang anda inginkan
+message "Masukkan Password Mysql yang anda inginkan :" 
 echo "Your Answer : "
 read Password
 
@@ -56,6 +58,20 @@ sudo systemctl restart apache2
 
 echo "Instalasi dan konfigurasi selesai. Anda dapat mengakses phpMyAdmin dari instance yang berbeda menggunakan pengguna 'tegar' dan kata sandi 'rahasia'."
 
+cd /etc/apache2/sites-available/
+cat <<EOF >000-default.conf
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html/phpmyadmin/
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOF
+
+# Restart Apache2 service
+sudo systemctl restart apache2
+
 clear
 echo -e "${banner}${RESET}"
 sleep 2
@@ -69,22 +85,3 @@ echo "| Password          | $Password   |" >> /home/database/user.txt
 echo "#############################" >> /home/database/user.txt
 cat /home/database/user.txt
 echo " "
-
-
-
-# nitip
-
-# mysql -u root -p
-
-# MariaDB [(none)]> CREATE DATABASE booku;
-# MariaDB [(none)]> CREATE USER 'tegar'@'%' IDENTIFIED BY 'tegar';
-# MariaDB [(none)]> GRANT ALL PRIVILEGES ON booku.* TO 'tegar'@'%';
-# MariaDB [(none)]> GRANT ALL PRIVILEGES ON datasiswa.* TO 'tegar'@'%';
-# MariaDB [(none)]> FLUSH PRIVILEGES;
-
-# GRANT ALL PRIVILEGES ON database.table TO 'tegar'@'localhost';
-# GRANT ALL PRIVILEGES ON *.* TO 'tegar'@'%' IDENTIFIED BY 'rahasia';
-
-# GRANT INSERT ON *.* TO 'tegar'@'%';
-
-
