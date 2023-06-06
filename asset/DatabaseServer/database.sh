@@ -5,7 +5,7 @@ source ./asset/view.sh
 # source ./asset/function.sh
 
 # Install PHP, phpMyAdmin, and MariaDB Server
-sudo apt install php phpmyadmin mariadb-server -y & progress_bar $!
+sudo apt install php phpmyadmin mariadb-server -y 
 clear
 echo -e "${banner}${RESET}"
 sleep 2
