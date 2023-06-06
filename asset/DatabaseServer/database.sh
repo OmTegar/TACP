@@ -1,10 +1,14 @@
 #!/bin/bash
 
 # Update package list
-sudo apt update
+source ./asset/view.sh
+source ./asset/function.sh
 
 # Install PHP, phpMyAdmin, and MariaDB Server
-sudo apt install -y php phpmyadmin mariadb-server
+sudo apt install php phpmyadmin mariadb-server -y & progress_bar $!
+clear
+echo -e "${banner}${RESET}"
+sleep 2
 
 # Configure MariaDB Server
 sudo mysql_secure_installation <<EOF
@@ -17,15 +21,31 @@ y
 y
 EOF
 
+message "Masukkan Username Mysql yang anda inginkan :" 
+echo "Your Answer : "
+read Username
+
+message "Masukkan Password Mysql yang anda inginkan :" 
+echo "Your Answer : "
+read Password
+
 # Configure MariaDB Server
 sudo mysql <<EOF
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'tegar'@'%' IDENTIFIED BY 'rahasia' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON datasiswa.* TO 'tegar'@'%';
-GRANT ALL PRIVILEGES ON *.* TO 'tegar'@'%' IDENTIFIED BY 'rahasia';
-GRANT INSERT ON *.* TO 'tegar'@'%';
+GRANT ALL PRIVILEGES ON *.* TO '$Username'@'%' IDENTIFIED BY '$Password' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON datasiswa.* TO '$Username'@'%';
+GRANT ALL PRIVILEGES ON *.* TO '$Username'@'%' IDENTIFIED BY '$Password';
+GRANT INSERT ON *.* TO '$Username'@'%';
 FLUSH PRIVILEGES;
 EOF
+
+# message "Secara Deffauld Anda Dapat login Menggunakan username "root" dan Password "root""
+# message "Anda Dapat Tetap Menggunakan User Yang Sudah Anda Gunakan Dengan Username "$Username" Dan Password  "$Password""
+
+
+cd /home & mkdir database
+chmod 777 /home/database
+
 # Baru
 # GRANT ALL PRIVILEGES ON *.* TO 'root'@'3.90.50.239' IDENTIFIED BY 'root' WITH GRANT OPTION;
 # FLUSH PRIVILEGES;
@@ -80,7 +100,20 @@ EOF
 # Restart Apache2 service
 sudo systemctl restart apache2
 
-
+clear
+echo -e "${banner}${RESET}"
+sleep 2
+echo " "
+message "Berikut Data User Mysql Server Anda:" > /home/database/user.txt
+echo "#############################" >> /home/database/user.txt
+echo "Username Default  = root "         >> /home/database/user.txt
+echo "Password Default  = root"    >> /home/database/user.txt
+echo " "
+echo "Username          = $Username"          >> /home/database/user.txt
+echo "Password          = $Password"      >> /home/database/user.txt
+echo "#############################" >> /home/database/user.txt
+cat /home/database/user.txt
+echo " "
 
 
 # nitip

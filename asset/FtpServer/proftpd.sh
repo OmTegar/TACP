@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./asset/upgrade.sh
+source ./asset/view.sh
 
 #install proftpd
 apt-get install proftpd -y & progress_bar $!
