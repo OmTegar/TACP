@@ -14,7 +14,7 @@ echo "phpmyadmin phpmyadmin/mysql/app-pass password root" | sudo debconf-set-sel
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
 
 # Install PHP, phpMyAdmin, and MariaDB Server
-sudo apt install php phpmyadmin mariadb-server -y 
+sudo apt install php phpmyadmin mariadb-server -y & progress_bar $!
 clear
 echo -e "${banner}${RESET}"
 sleep 2
