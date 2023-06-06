@@ -30,6 +30,10 @@ y
 y
 EOF
 
+clear
+echo -e "${banner}${RESET}"
+sleep 2
+
 # Masukkan Username Mysql yang anda inginkan
 message "Masukkan Username Mysql yang anda inginkan :" 
 echo "Your Answer : "
