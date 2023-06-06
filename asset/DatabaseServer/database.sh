@@ -2,7 +2,7 @@
 
 # Update package list
 source ./asset/view.sh
-source ./asset/function.sh
+# source ./asset/function.sh
 
 # Install PHP, phpMyAdmin, and MariaDB Server
 sudo apt install php phpmyadmin mariadb-server -y & progress_bar $!
@@ -55,6 +55,9 @@ sudo systemctl restart apache2
 # Update phpMyAdmin configuration to allow remote access
 sudo sed -i '/Allow from/ s/^#*/#/' /etc/phpmyadmin/apache.conf
 sudo systemctl restart apache2
+
+# Skip dbconfig-common configuration for phpMyAdmin
+echo "No" | sudo dbconfig-common
 
 echo "Instalasi dan konfigurasi selesai. Anda dapat mengakses phpMyAdmin dari instance yang berbeda menggunakan pengguna 'tegar' dan kata sandi 'rahasia'."
 
