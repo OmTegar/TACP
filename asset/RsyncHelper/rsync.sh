@@ -54,7 +54,7 @@ perform_local_rsync() {
       options+="P"
       ;;
     5)
-      warning_message "Masukkan opsi kustom (pisahkan dengan spasi):"
+      warning_message "Masukkan opsi kustom (tanpa tanda minus [-] atau spasi):"
       echo "Your Answer : "
       read -r -a custom_options_array
       options+="${custom_options_array[*]}"
@@ -192,18 +192,29 @@ add_cronjob() {
     echo "Your Answer : "
     read cron_minutes
 
-    # Validasi apakah input waktu cron adalah angka
-    if [[ "$cron_minutes" =~ ^[0-9]+$ ]]; then
-      # Menambahkan cronjob untuk menjalankan script rsync
-      (crontab -l ; echo "$cron_minutes * * * * /bin/bash $rsync_script_path") | crontab -
-      message "Cronjob berhasil ditambahkan."
-    else
-      error_message "Waktu cron tidak valid. Cronjob tidak ditambahkan."
+    # Menghitung waktu dalam jam dan menit
+    cron_hours=$((cron_minutes / 60))
+    cron_minutes=$((cron_minutes % 60))
+
+    # Menghitung waktu dalam hari, jam, dan menit
+    cron_days=$((cron_hours / 24))
+    cron_hours=$((cron_hours % 24))
+
+    # Menambahkan cronjob untuk menjalankan script rsync
+    cron_expression="$cron_minutes $cron_hours * *"
+    if [ "$cron_days" -gt 0 ]; then
+      cron_expression="$cron_days/$cron_hours * *"
     fi
+
+    # Menambahkan cronjob ke crontab
+    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path") | crontab -
+    message "Cronjob berhasil ditambahkan."
+    sudo crontab -l
   else
     message "Cronjob tidak ditambahkan."
   fi
 }
+
 
 # Menampilkan menu utama
 while true; do
