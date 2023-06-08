@@ -200,9 +200,10 @@ add_cronjob() {
     cron_hours=$((cron_hours % 24))
 
     # Menambahkan cronjob untuk menjalankan script rsync
-    cron_expression="$cron_minutes $cron_hours * *"
     if [ "$cron_days" -gt 0 ]; then
-      cron_expression="$cron_days/$cron_hours * *"
+      cron_expression="$cron_minutes $cron_hours */$cron_days * *"
+    else
+      cron_expression="$cron_minutes $cron_hours * * *"
     fi
 
     # Menambahkan cronjob ke crontab
