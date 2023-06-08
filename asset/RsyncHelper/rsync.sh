@@ -2,7 +2,12 @@
 
 source ./asset/view.sh
 
-sudo apt-get install rsync -y & progress_bar $!
+# Pengecekan rsync
+if ! command -v rsync &> /dev/null; then
+  # Jika rsync belum terinstall, lakukan instalasi
+  sudo apt-get install rsync -y & progress_bar $!
+fi
+
 clear
 echo -e "${banner}${RESET}"
 sleep 2
