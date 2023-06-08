@@ -195,6 +195,10 @@ run_reactjs_framework() {
     done
 }
 
+run_rsync_helper() {
+    sudo ./asset/RsyncHelper/rsync.sh
+}
+
 run_Database_server() {
     sudo ./asset/DatabaseServer/database.sh
 }

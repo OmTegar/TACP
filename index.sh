@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # source upgrade package....
-source ./asset/upgrade.sh
+source ./asset/view.sh
 source ./asset/function.sh
 
 # Skrip utama
@@ -40,6 +40,9 @@ select opt in "${options[@]}"; do
             ;;
         "Auto Mount EBS")
             run_auto_mount_ebs
+            ;;
+        "Rsync Helper")
+            run_rsync_helper
             ;;
         "Remote Server ( OS Ubuntu / OS Debian )")
             run_remote_server
