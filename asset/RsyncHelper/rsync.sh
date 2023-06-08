@@ -147,7 +147,14 @@ perform_remote_rsync() {
 # Fungsi untuk menambahkan cronjob
 add_cronjob() {
   # Mendapatkan path dari directory HasilRsync.sh
-  rsync_script_path="/home//HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
+  rsync_directory="/home/rsync-TACP"
+  rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
+
+  # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
+  if [ ! -d "$rsync_directory" ]; then
+    # Membuat direktori baru jika belum ada
+    mkdir -p "$rsync_directory"
+  fi
 
   # Menanyakan pengguna apakah ingin menambahkan cronjob
   message "Apakah Anda ingin menambahkan cronjob untuk script rsync? (y/n)"
