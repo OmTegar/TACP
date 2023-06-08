@@ -191,21 +191,9 @@ add_cronjob() {
     echo "Your Answer : "
     read cron_minutes
 
-    # Menghitung waktu dalam jam dan menit
-    cron_hours=$((cron_minutes / 60))
-    cron_minutes=$((cron_minutes % 60))
-
-    # Menghitung waktu dalam hari, jam, dan menit
-    cron_days=$((cron_hours / 24))
-    cron_hours=$((cron_hours % 24))
-
     # Menambahkan cronjob untuk menjalankan script rsync
-    if [ "$cron_days" -gt 0 ]; then
-      cron_expression="$cron_minutes $cron_hours */$cron_days * *"
-    else
-      cron_expression="$cron_minutes $cron_hours * * *"
-    fi
-
+    cron_expression="*/$cron_minutes * * * *"
+    
     # Menambahkan cronjob ke crontab
     (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path >> /path/to/logfile.log 2>&1") | crontab -
     message "Cronjob berhasil ditambahkan."
