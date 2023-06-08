@@ -167,7 +167,7 @@ while true; do
       perform_remote_rsync
       ;;
     3)
-      exit 0
+      break 2
       ;;
     *)
       error_message "Pilihan tidak valid."
