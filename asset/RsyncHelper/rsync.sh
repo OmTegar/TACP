@@ -164,6 +164,41 @@ perform_remote_rsync() {
   fi
 }
 
+add_cronjob() {
+  # Mendapatkan path dari directory HasilRsync.sh
+  rsync_directory="/home/Cronjob-TACP"
+  rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
+
+  # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
+  if [ ! -d "$rsync_directory" ]; then
+    # Membuat direktori baru jika belum ada
+    mkdir -p "$rsync_directory"
+  fi
+
+  # Menanyakan pengguna apakah ingin menambahkan cronjob
+  message "Apakah Anda ingin menambahkan cronjob untuk script rsync? (y/n)"
+  echo "Your Answer : "
+  read cronjob_option
+
+  if [ "$cronjob_option" = "y" ]; then
+    # Menanyakan pengguna waktu (hitungan menit) untuk menjalankan cronjob
+    message "Masukkan waktu cronjob (hitungan menit):"
+    echo "Your Answer : "
+    read cron_minutes
+
+    # Validasi apakah input waktu cron adalah angka
+    if [[ "$cron_minutes" =~ ^[0-9]+$ ]]; then
+      # Menambahkan cronjob untuk menjalankan script rsync
+      (crontab -l ; echo "$cron_minutes * * * * /bin/bash $rsync_script_path") | crontab -
+      message "Cronjob berhasil ditambahkan."
+    else
+      error_message "Waktu cron tidak valid. Cronjob tidak ditambahkan."
+    fi
+  else
+    message "Cronjob tidak ditambahkan."
+  fi
+}
+
 # Menampilkan menu utama
 while true; do
   echo "+-----------------------------------------+"
@@ -179,9 +214,11 @@ while true; do
   case $choice in
     1)
       perform_local_rsync
+      add_cronjob
       ;;
     2)
       perform_remote_rsync
+      add_cronjob
       ;;
     3)
       break 2
