@@ -65,6 +65,12 @@ perform_local_rsync() {
       ;;
   esac
 
+  # Memisahkan opsi kustom menjadi opsi individual
+  custom_options_array=($custom_options)
+  for opt in "${custom_options_array[@]}"; do
+    options+="$opt"
+  done
+
   # Perintah rsync
   rsync_command="rsync -$options --progress $source_path $destination_path"
 
@@ -130,6 +136,12 @@ perform_remote_rsync() {
       options=$(echo "$rsync_options" | sed 's/./& /g')
       ;;
   esac
+
+  # Memisahkan opsi kustom menjadi opsi individual
+  custom_options_array=($custom_options)
+  for opt in "${custom_options_array[@]}"; do
+    options+="$opt"
+  done
 
   # Mendapatkan informasi server remote dari pengguna
   message "Masukkan informasi server remote:"
