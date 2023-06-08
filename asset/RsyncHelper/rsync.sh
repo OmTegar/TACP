@@ -94,7 +94,6 @@ perform_local_rsync() {
     # Menambahkan isi ke file HasilRsync.sh
     echo "#!/bin/bash" > "$rsync_script_path"
     echo "$rsync_command" >> "$rsync_script_path"
-
     add_cronjob
 else
     error_message "Rsync gagal dilakukan."
@@ -207,7 +206,7 @@ add_cronjob() {
     fi
 
     # Menambahkan cronjob ke crontab
-    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path") | crontab -
+    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path >> /path/to/logfile.log 2>&1") | crontab -
     message "Cronjob berhasil ditambahkan."
     sudo crontab -l
   else
