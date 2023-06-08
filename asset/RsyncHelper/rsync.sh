@@ -49,14 +49,14 @@ perform_local_rsync() {
       options+="P"
       ;;
     5)
-      warning_message "Masukkan opsi kustom:"
+      warning_message "Masukkan opsi kustom (pisahkan dengan spasi):"
       echo "Your Answer : "
-      read custom_options
-      options+="$custom_options"
+      read -r -a custom_options_array
+      options+="${custom_options_array[*]}"
       ;;
     *)
-      error_message "Pilihan tidak valid. Menggunakan opsi default: -avz"
-      options="avz"
+      # Memisahkan opsi menjadi karakter individu
+      options=$(echo "$rsync_options" | sed 's/./& /g')
       ;;
   esac
 
@@ -116,14 +116,13 @@ perform_remote_rsync() {
       options+="P"
       ;;
     5)
-      warning_message "Masukkan opsi kustom:"
+      warning_message "Masukkan opsi kustom (pisahkan dengan spasi):"
       echo "Your Answer : "
-      read custom_options
-      options+="$custom_options"
+      read -r -a custom_options_array
+      options+="${custom_options_array[*]}"
       ;;
     *)
-      error_message "Pilihan tidak valid. Menggunakan opsi default: -avz"
-      options="avz"
+      options=$(echo "$rsync_options" | sed 's/./& /g')
       ;;
   esac
 
