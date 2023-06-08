@@ -122,23 +122,52 @@ perform_remote_rsync() {
       ;;
   esac
 
-  # Mendapatkan server sumber dari pengguna
-  message "Masukkan server sumber (username@server):"
+  # Mendapatkan server sumber dan tujuan dari pengguna
+  message "Masukkan server sumber dan tujuan (username@server):"
   echo "Your Answer : "
-  read source_server
+  read -a servers
 
-  # Mendapatkan server tujuan dari pengguna
-  message "Masukkan server tujuan (username@server):"
+  if [ ${#servers[@]} -lt 2 ]; then
+    error_message "Server sumber dan tujuan harus diisi."
+    return
+  fi
+
+  source_server="${servers[0]}"
+  destination_server="${servers[1]}"
+
+  # Mendapatkan metode otentikasi untuk server tujuan
+  message "Pilih metode otentikasi untuk server tujuan:"
+  echo "+-----+-------------------------+----------------------------------------------+"
+  echo "| No  |         Metode          |                  Keterangan                 |"
+  echo "+-----+-------------------------+----------------------------------------------+"
+  echo "|  1  | Password                | Menggunakan password untuk otentikasi       |"
+  echo "|  2  | File .pem               | Menggunakan file .pem untuk otentikasi      |"
+  echo "+-----+-------------------------+----------------------------------------------+"
   echo "Your Answer : "
-  read destination_server
+  read -p "Masukkan nomor pilihan (1 atau 2):" auth_method
 
-  # Mendapatkan path ke file .pem dari pengguna
-  message "Masukkan path ke file .pem:"
-  echo "Your Answer : "
-  read pem_path
-
-  # Perintah rsync
-  rsync_command="rsync -$options --progress -e 'ssh -i $pem_path' $source_server:$source_path $destination_path"
+  # Mendapatkan informasi otentikasi berdasarkan metode yang dipilih
+  case $auth_method in
+    1)
+      message "Masukkan password untuk otentikasi server tujuan:"
+      echo "Your Answer : "
+      read -s destination_password
+      rsync_command="rsync -$options --progress -e 'sshpass -p $destination_password ssh' $source_path $destination_server:$destination_path"
+      ;;
+    2)
+      message "Masukkan path ke file .pem:"
+      echo "Your Answer : "
+      read pem_path
+      rsync_command="rsync -$options --progress -e 'ssh -i $pem_path' $source_path $destination_server:$destination_path"
+      ;;
+    *)
+      error_message "Pilihan tidak valid. Menggunakan metode default: Password"
+      message "Masukkan password untuk otentikasi server tujuan:"
+      echo "Your Answer : "
+      read -s destination_password
+      rsync_command="rsync -$options --progress -e 'sshpass -p $destination_password ssh' $source_path $destination_server:$destination_path"
+      ;;
+  esac
 
   # Menjalankan perintah rsync
   $rsync_command
