@@ -80,6 +80,16 @@ perform_local_rsync() {
   # Memeriksa status keluaran rsync
   if [ $? -eq 0 ]; then
     success_message "Rsync berhasil dilakukan."
+
+    # Mendapatkan path dari directory HasilRsync.sh
+    rsync_directory="/home/Cronjob-TACP/RsyncCommand"
+    rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
+
+    # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
+    if [ ! -d "$rsync_directory" ]; then
+      # Membuat direktori baru jika belum ada
+      mkdir -p "$rsync_directory"
+    fi
   else
     error_message "Rsync gagal dilakukan."
   fi
@@ -165,16 +175,6 @@ perform_remote_rsync() {
 }
 
 add_cronjob() {
-  # Mendapatkan path dari directory HasilRsync.sh
-  rsync_directory="/home/Cronjob-TACP"
-  rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
-
-  # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
-  if [ ! -d "$rsync_directory" ]; then
-    # Membuat direktori baru jika belum ada
-    mkdir -p "$rsync_directory"
-  fi
-
   # Menanyakan pengguna apakah ingin menambahkan cronjob
   message "Apakah Anda ingin menambahkan cronjob untuk script rsync? (y/n)"
   echo "Your Answer : "
