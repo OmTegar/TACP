@@ -9,7 +9,7 @@ message() {
 run_update() {
     if apt-get update -y >/dev/null 2>&1; then
         message "Update sudah dijalankan sebelumnya, melanjutkan ke perintah berikutnya"
-        sleep 2
+        sleep 3
     else
         apt-get update -y
     fi

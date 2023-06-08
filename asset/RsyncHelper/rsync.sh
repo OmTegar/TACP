@@ -90,6 +90,7 @@ perform_local_rsync() {
       # Membuat direktori baru jika belum ada
       mkdir -p "$rsync_directory"
     fi
+    add_cronjob
   else
     error_message "Rsync gagal dilakukan."
   fi
@@ -214,11 +215,9 @@ while true; do
   case $choice in
     1)
       perform_local_rsync
-      add_cronjob
       ;;
     2)
       perform_remote_rsync
-      add_cronjob
       ;;
     3)
       break 2
