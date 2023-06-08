@@ -87,13 +87,18 @@ perform_local_rsync() {
 
     # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
     if [ ! -d "$rsync_directory" ]; then
-      # Membuat direktori baru jika belum ada
-      mkdir -p "$rsync_directory"
+        # Membuat direktori baru jika belum ada
+        mkdir -p "$rsync_directory"
     fi
+
+    # Menambahkan isi ke file HasilRsync.sh
+    echo "#!/bin/bash" > "$rsync_script_path"
+    echo "$rsync_command" >> "$rsync_script_path"
+
     add_cronjob
-  else
+else
     error_message "Rsync gagal dilakukan."
-  fi
+fi
 }
 
 # Fungsi untuk melakukan rsync ke server remote
