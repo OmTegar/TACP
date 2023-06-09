@@ -165,7 +165,7 @@ perform_remote_rsync() {
   esac
 
   # Memisahkan opsi kustom menjadi opsi individual
-  custom_options_array=($custom_options)
+  custom_options_array=($options)
   for opt in "${custom_options_array[@]}"; do
     options+="$opt"
   done
