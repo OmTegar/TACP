@@ -180,7 +180,7 @@ perform_remote_rsync() {
   rsync_command="rsync -$options --progress -e 'ssh -p $port' $source_path $username@$hostname:$destination_path"
 
   # Menjalankan perintah rsync
-  $rsync_command
+  eval "$rsync_command"
 
   # Memeriksa status keluaran rsync
   if [ $? -eq 0 ]; then
@@ -188,6 +188,11 @@ perform_remote_rsync() {
   else
     error_message "Rsync gagal dilakukan."
   fi
+
+  #ini adalah perintah yang di butuhkan server target 
+  #sudo chown -R ec2-user:ec2-user /home/ec2-user/app-log/
+  #sudo chmod -R 755 /home/ec2-user/app-log/
+
 }
 
 # Menampilkan menu utama
