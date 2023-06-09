@@ -185,10 +185,44 @@ perform_remote_rsync() {
   # Memeriksa status keluaran rsync
   if [ $? -eq 0 ]; then
     success_message "Rsync berhasil dilakukan."
+
+    # Mendapatkan path dari directory HasilRsync.sh
+    rsync_directory="/home/Cronjob-TACP/RsyncCommand"
+    sudo mkdir -p "$rsync_directory"
+    sudo chmod 755 "$rsync_directory"
+
+    rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
+
+    # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
+    if [ ! -d "$rsync_directory" ]; then
+      # Membuat direktori baru jika belum ada
+      mkdir -p "$rsync_directory"
+      success_message "Direktori rsync-TACP telah dibuat di $rsync_directory"
+    fi
+
+    # Membuat file script HasilRsync.sh
+    echo "#!/bin/bash" | sudo tee "$rsync_script_path" > /dev/null
+    echo "$rsync_command" | sudo tee -a "$rsync_script_path" > /dev/null
+
+    success_message "File HasilRsync.sh telah dibuat di $rsync_script_path"
+
+    # Menambahkan cronjob untuk menjalankan script HasilRsync.sh
+    message "Apakah Anda ingin menambahkan cronjob untuk menjalankan script HasilRsync.sh? (y/n)"
+    read -p "Your Answer : " add_cronjob
+
+    if [ "$add_cronjob" == "y" ]; then
+      message "Masukkan waktu cronjob (dalam hitungan menit):"
+      read -p "Your Answer : " cronjob_minutes
+
+      # Menambahkan cronjob
+      (crontab -l ; echo "*/$cronjob_minutes * * * * bash $rsync_script_path") | crontab -
+      success_message "Cronjob berhasil ditambahkan."
+    else
+      success_message "Cronjob tidak ditambahkan."
+    fi
   else
     error_message "Rsync gagal dilakukan."
   fi
-
   #ini adalah perintah yang di butuhkan server target 
   #sudo chown -R ec2-user:ec2-user /home/ec2-user/app-log/
   #sudo chmod -R 755 /home/ec2-user/app-log/
