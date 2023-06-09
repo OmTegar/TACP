@@ -187,7 +187,7 @@ perform_remote_rsync() {
     success_message "Rsync berhasil dilakukan."
 
     # Mendapatkan path dari directory HasilRsync.sh
-    rsync_directory="/home/Cronjob-TACP/RsyncCommand"
+    rsync_directory="/home/Cronjob-TACP/RsyncServer"
     sudo mkdir -p "$rsync_directory"
     sudo chmod 755 "$rsync_directory"
 
