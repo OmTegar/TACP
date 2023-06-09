@@ -5,7 +5,7 @@ source ./asset/view.sh
 # Pengecekan rsync
 if ! command -v rsync &> /dev/null; then
   # Jika rsync belum terinstall, lakukan instalasi
-  sudo apt-get install rsync -y & progress_bar $!
+  sudo apt-get install rsync sshpass -y & progress_bar $!
 fi
 
 clear
