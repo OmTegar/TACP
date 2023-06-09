@@ -80,7 +80,8 @@ perform_local_rsync() {
 
     # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
     if [ ! -d "$rsync_directory" ]; then
-      sudo mkdir "$rsync_directory"
+      # Membuat direktori baru jika belum ada
+      mkdir -p "$rsync_directory"
       success_message "Direktori rsync-TACP telah dibuat di $rsync_directory"
     fi
 
