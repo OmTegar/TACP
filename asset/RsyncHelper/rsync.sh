@@ -175,10 +175,10 @@ perform_remote_rsync() {
   read -p "Username:" username
   read -p "Hostname:" hostname
   read -p "Port (default 22):" port
+  read -p "Password:" password
 
   # Perintah rsync
-  rsync_command="rsync -$options --progress -e 'ssh -p $port' $source_path $username@$hostname:$destination_path"
-
+  rsync_command="sshpass -p '$password' rsync -$options --progress -e 'ssh -p $port' $source_path $username@$hostname:$destination_path"
   # Menjalankan perintah rsync
   eval "$rsync_command"
 
@@ -226,8 +226,8 @@ perform_remote_rsync() {
   #ini adalah perintah yang di butuhkan server target 
   #sudo chown -R ec2-user:ec2-user /home/ec2-user/app-log/
   #sudo chmod -R 755 /home/ec2-user/app-log/
-
 }
+
 
 # Menampilkan menu utama
 while true; do
