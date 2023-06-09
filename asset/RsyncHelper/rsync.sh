@@ -189,31 +189,6 @@ perform_remote_rsync() {
   fi
 }
 
-add_cronjob() {
-  # Menanyakan pengguna apakah ingin menambahkan cronjob
-  message "Apakah Anda ingin menambahkan cronjob untuk script rsync? (y/n)"
-  echo "Your Answer : "
-  read cronjob_option
-
-  if [ "$cronjob_option" = "y" ]; then
-    # Menanyakan pengguna waktu (hitungan menit) untuk menjalankan cronjob
-    message "Masukkan waktu cronjob (hitungan menit):"
-    echo "Your Answer : "
-    read cron_minutes
-
-    # Menambahkan cronjob untuk menjalankan script rsync
-    cron_expression="*/$cron_minutes * * * *"
-    
-    # Menambahkan cronjob ke crontab
-    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path") | crontab -
-    message "Cronjob berhasil ditambahkan."
-    sudo crontab -l
-  else
-    message "Cronjob tidak ditambahkan."
-  fi
-}
-
-
 # Menampilkan menu utama
 while true; do
   echo "+-----------------------------------------+"
