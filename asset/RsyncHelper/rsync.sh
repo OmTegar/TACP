@@ -62,10 +62,7 @@ perform_local_rsync() {
   esac
 
   # Memisahkan opsi kustom menjadi opsi individual
-  custom_options_array=($custom_options)
-  for opt in "${custom_options_array[@]}"; do
-    options+="$opt"
-  done
+  custom_options_array=($options)
 
   # Perintah rsync
   rsync_command="rsync -$options --progress $source_path $destination_path"
@@ -297,7 +294,7 @@ perform_remote_rsync_with_pem() {
 
     if [ "$pem_in_pem_directory" == "y" ]; then
       # Mendapatkan file .pem yang tersedia di pem_directory
-      pem_files=($(ls -p /home/Cronjob-TACP/RsyncServer(.pem) | grep -v /))
+      pem_files=($(ls -p /home/Cronjob-TACP/RsyncServer | grep '\.pem$' | grep -v /))
       num_pem_files=${#pem_files[@]}
 
       if [ "$num_pem_files" -eq 0 ]; then
@@ -317,7 +314,7 @@ perform_remote_rsync_with_pem() {
       done
 
       selected_pem_file="${pem_files[$(($selected_pem_index-1))]}"
-      pem_path="/home/Cronjob-TACP/RsyncServer(.pem)/$selected_pem_file"
+      pem_path="/home/Cronjob-TACP/RsyncServer/$selected_pem_file"
     else
       message "Masukkan path file .pem:"
       read -p "Your Answer : " pem_path
