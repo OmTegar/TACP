@@ -61,6 +61,12 @@ perform_local_rsync() {
       ;;
   esac
 
+  # Memisahkan opsi kustom menjadi opsi individual
+  custom_options_array=($custom_options)
+  for opt in "${custom_options_array[@]}"; do
+    options+="$opt"
+  done
+
   # Perintah rsync
   rsync_command="rsync -$options --progress $source_path $destination_path"
 
@@ -114,13 +120,11 @@ perform_local_rsync() {
 perform_remote_rsync() {
   # Mendapatkan path sumber dari pengguna
   message "Masukkan path sumber:"
-  echo "Your Answer : "
-  read source_path
+  read -p "Your Answer : " source_path
 
   # Mendapatkan path tujuan dari pengguna
   message "Masukkan path tujuan:"
-  echo "Your Answer : "
-  read destination_path
+  read -p "Your Answer : " destination_path
 
   # Mendapatkan opsi rsync dari pengguna
   message "Pilih opsi rsync:"
@@ -133,7 +137,6 @@ perform_remote_rsync() {
   echo "|  4  | -P                  | Setara dengan -v --partial --progress                   |"
   echo "|  5  | Opsi kustom         | Opsi kustom                                             |"
   echo "+-----+---------------------+---------------------------------------------------------+"
-  echo "Your Answer : "
   read -p "Masukkan nomor pilihan (nomor yang dipisahkan koma atau '5' untuk opsi kustom):" rsync_options
 
   # Mengatur opsi rsync berdasarkan pilihan pengguna
@@ -153,7 +156,6 @@ perform_remote_rsync() {
       ;;
     5)
       warning_message "Masukkan opsi kustom (pisahkan dengan spasi):"
-      echo "Your Answer : "
       read -r -a custom_options_array
       options+="${custom_options_array[*]}"
       ;;
@@ -170,7 +172,6 @@ perform_remote_rsync() {
 
   # Mendapatkan informasi server remote dari pengguna
   message "Masukkan informasi server remote:"
-  echo "Your Answer : "
   read -p "Username:" username
   read -p "Hostname:" hostname
   read -p "Port (default 22):" port
