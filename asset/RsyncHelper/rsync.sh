@@ -16,13 +16,11 @@ sleep 2
 perform_local_rsync() {
   # Mendapatkan path sumber dari pengguna
   message "Masukkan path sumber:"
-  echo "Your Answer : "
-  read source_path
+  read -p "Your Answer : " source_path
 
   # Mendapatkan path tujuan dari pengguna
   message "Masukkan path tujuan:"
-  echo "Your Answer : "
-  read destination_path
+  read -p "Your Answer : " destination_path
 
   # Mendapatkan opsi rsync dari pengguna
   message "Pilih opsi rsync:"
@@ -35,7 +33,6 @@ perform_local_rsync() {
   echo "|  4  | -P                  | Setara dengan -v --partial --progress                   |"
   echo "|  5  | Opsi kustom         | Opsi kustom                                             |"
   echo "+-----+---------------------+---------------------------------------------------------+"
-  echo "Your Answer : "
   read -p "Masukkan nomor pilihan (nomor yang dipisahkan koma atau '5' untuk opsi kustom):" rsync_options
 
   # Mengatur opsi rsync berdasarkan pilihan pengguna
@@ -55,7 +52,6 @@ perform_local_rsync() {
       ;;
     5)
       warning_message "Masukkan opsi kustom (tanpa tanda minus [-] atau spasi):"
-      echo "Your Answer : "
       read -r -a custom_options_array
       options+="${custom_options_array[*]}"
       ;;
@@ -64,12 +60,6 @@ perform_local_rsync() {
       options=$(echo "$rsync_options" | sed 's/./& /g')
       ;;
   esac
-
-  # Memisahkan opsi kustom menjadi opsi individual
-  custom_options_array=($custom_options)
-  for opt in "${custom_options_array[@]}"; do
-    options+="$opt"
-  done
 
   # Perintah rsync
   rsync_command="rsync -$options --progress $source_path $destination_path"
@@ -83,21 +73,40 @@ perform_local_rsync() {
 
     # Mendapatkan path dari directory HasilRsync.sh
     rsync_directory="/home/Cronjob-TACP/RsyncCommand"
+    sudo mkdir -p "$rsync_directory"
+    sudo chmod 755 "$rsync_directory"
+
     rsync_script_path="$rsync_directory/HasilRsync_$(date +'%Y%m%d%H%M%S').sh"
 
     # Memeriksa apakah direktori rsync-TACP sudah ada atau belum
     if [ ! -d "$rsync_directory" ]; then
-        # Membuat direktori baru jika belum ada
-        mkdir -p "$rsync_directory"
+      # Membuat direktori baru jika belum ada
+      mkdir -p "$rsync_directory"
     fi
 
-    # Menambahkan isi ke file HasilRsync.sh
-    echo "#!/bin/bash" > "$rsync_script_path"
-    echo "$rsync_command" >> "$rsync_script_path"
-    add_cronjob
-else
+    # Membuat file script HasilRsync.sh
+    echo "#!/bin/bash" | sudo tee "$rsync_script_path" > /dev/null
+    echo "$rsync_command" | sudo tee -a "$rsync_script_path" > /dev/null
+
+    success_message "File HasilRsync.sh telah dibuat di $rsync_script_path"
+
+    # Menambahkan cronjob untuk menjalankan script HasilRsync.sh
+    message "Apakah Anda ingin menambahkan cronjob untuk menjalankan script HasilRsync.sh? (y/n)"
+    read -p "Your Answer : " add_cronjob
+
+    if [ "$add_cronjob" == "y" ]; then
+      message "Masukkan waktu cronjob (dalam hitungan menit):"
+      read -p "Your Answer : " cronjob_minutes
+
+      # Menambahkan cronjob
+      (crontab -l ; echo "*/$cronjob_minutes * * * * bash $rsync_script_path") | crontab -
+      success_message "Cronjob berhasil ditambahkan."
+    else
+      success_message "Cronjob tidak ditambahkan."
+    fi
+  else
     error_message "Rsync gagal dilakukan."
-fi
+  fi
 }
 
 # Fungsi untuk melakukan rsync ke server remote
@@ -195,7 +204,7 @@ add_cronjob() {
     cron_expression="*/$cron_minutes * * * *"
     
     # Menambahkan cronjob ke crontab
-    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path >> /path/to/logfile.log 2>&1") | crontab -
+    (crontab -l ; echo "$cron_expression /bin/bash $rsync_script_path") | crontab -
     message "Cronjob berhasil ditambahkan."
     sudo crontab -l
   else
