@@ -6,14 +6,33 @@ source ./asset/function.sh
 
 # Skrip utama
 clear
-clear
 echo -e "${banner}${RESET}"
 sleep 2
 
 # Menjalankan perintah update
-run_update
+update_status=$(
+    apt-get update -y >/dev/null 2>&1
+    echo $?
+)
+if [ $update_status -eq 0 ]; then
+    echo "Update sudah dijalankan sebelumnya, melanjutkan ke perintah berikutnya"
+else
+    apt-get update -y &
+    progress_bar $! wait $!
+fi
 
 chmod +x -R asset/
+
+clear
+echo -e "${banner}${RESET}"
+sleep 2
+
+# Check And Installation TACP Syntax
+if ! command -v TACP >/dev/null 2>&1; then
+    echo "Syntax TACP belum ada, menjalankan proses instalasi..."
+    sudo ./asset/CustomSyntax/syntax.sh
+    sleep 2
+fi
 
 clear
 echo -e "${banner}${RESET}"
