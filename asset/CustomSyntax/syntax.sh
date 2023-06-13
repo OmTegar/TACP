@@ -89,20 +89,22 @@ fi
 echo "[✔] Installing ...";
 echo "";
 git clone https://github.com/OmTegar/TACP.git "$INSTALL_DIR";
-echo "#!/bin/bash\n./$INSTALL_DIR/index.sh" '${1+"$@"}' > /usr/bin/TACP;
-chmod +x /usr/bin/TACP;
+echo "#!/bin/bash
+source $INSTALL_DIR/index.sh" '${1+"$@"}' > /usr/bin/tacp;
+chmod +x /usr/bin/tacp;
+chmod +x "$INSTALL_DIR/index.sh"
 
 
 if [ -d "$INSTALL_DIR" ] ;
 then
     echo "";
-        echo "[✔] Successfuly Installed !!! \n\n";
+        echo "[✔] Successfully Installed !!! \n\n";
         echo -e $GREEN "       [+]+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[+]"
         echo            "       [+]                                                             [+]"
-        echo -e $GREEN "       [+]     ✔✔✔ Now Just Type In Terminal (TACP) ✔✔✔             [+]"
+        echo -e $GREEN "       [+]     ✔✔✔ Now Just Type In Terminal (tacp) ✔✔✔             [+]"
         echo            "       [+]                                                             [+]"
         echo -e $GREEN "       [+]+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[+]"
 else
-    echo "[✘] Installation Failed Do Properly Again NIGGA !!! [✘]";
+    echo "[✘] Installation Failed. Please try again. [✘]";
     exit
 fi

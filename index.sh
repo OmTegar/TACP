@@ -28,11 +28,11 @@ echo -e "${banner}${RESET}"
 sleep 2
 
 # Check And Installation TACP Syntax
-if ! command -v TACP >/dev/null 2>&1; then
-    echo "Syntax TACP belum ada, menjalankan proses instalasi..."
-    sudo ./asset/CustomSyntax/syntax.sh
-    sleep 2
-fi
+# if ! command -v TACP >/dev/null 2>&1; then
+#     echo "Syntax TACP belum ada, menjalankan proses instalasi..."
+#     sudo ./asset/CustomSyntax/syntax.sh
+#     sleep 2
+# fi
 
 clear
 echo -e "${banner}${RESET}"
